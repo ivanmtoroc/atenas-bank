@@ -27,7 +27,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'xyzbank.urls'
+ROOT_URLCONF = 'atenasbank.urls'
 
 TEMPLATES = [
     {
@@ -45,12 +45,12 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'xyzbank.wsgi.application'
+WSGI_APPLICATION = 'atenasbank.wsgi.application'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'xyzbank',
+        'NAME': 'atenasbank',
         'USER': 'ivanmtoroc',
         'PASSWORD': 'ivanmtoroc',
         'HOST': 'localhost',
