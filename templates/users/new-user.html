@@ -11,9 +11,33 @@
 {% block panel_title %} New user form {% endblock panel_title %}
 
 {% block panel_body %}
-  <form method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <button class="btn btn-primary pull-right" type="submit">Create</button>
-  </form>
+<form method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <button class="btn btn-primary pull-right" type="submit">Create</button>
+</form>
 {% endblock panel_body %}
+
+{% block table_title %} Users {% endblock table_title %}
+
+{% block table_columns %}
+  <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" aria-sort="ascending" style="width: 226px;">
+    Username
+  </th>
+  <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" style="width: 290px;">
+    Email
+  </th>
+{% endblock table_columns %}
+
+{% block table_rows %}
+  {% for profile in profiles %}
+    <tr role="row" class="odd">
+      <td class="sorting_1">
+        {{ profile.user.username }}
+      </td>
+      <td>
+        {{ profile.user.email }}
+      </td>
+    </tr>
+  {% endfor %}
+{% endblock table_rows %}
