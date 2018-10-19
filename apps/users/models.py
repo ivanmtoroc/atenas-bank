@@ -8,3 +8,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @staticmethod
+    def list():
+        try:
+            return Profile.objects.all()
+        except Profile.DoesNotExist:
+            return None

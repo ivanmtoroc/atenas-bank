@@ -7,6 +7,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/bootstrap-material-design.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/ripples.min.css' %}">
@@ -37,59 +38,86 @@
               </a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-sign-out"></i> Sign out</a>
+              <a href="#"><i class="fa fa-sign-out"></i> Sign out </a>
             </li>
           </ul>
         </div>
       </nav>
     </header>
-
     {% include "sidebar.html" %}
-
     <div class="content-wrapper">
       <section class="content-header">
         <div class="list-inline">
           <li>
             <h1>
-              {% block page_title %}
-                Title
-              {% endblock page_title %}
+              {% block page_title %} Title {% endblock page_title %}
             </h1>
           </li>
           <li>
             <p>
-              {% block page_description %}
-                Description
-              {% endblock page_description %}
+              {% block page_description %} Description {% endblock page_description %}
             </p>
           </li>
         </div>
         <ol class="breadcrumb">
           {% block breadcrumb %}
-          <li><a href="#">Level 1</a></li>
+          <li>
+            <a href="#">Level 1</a>
+          </li>
           <li class="active">Level 2</li>
           {% endblock breadcrumb %}
         </ol>
       </section>
-
       <section class="content">
+
         {% block content %}
         <div class="row">
-          <div class="col-sm-6">
-            <div class="panel">
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <h4>
-                    {% block panel_title %}
-                      Title
-                    {% endblock panel_title %}
-                  </h4>
+          <div class="col-sm-4">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">{% block panel_title %} Title {% endblock panel_title %}</h3>
+              </div>
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    {% block panel_body %} Body {% endblock panel_body %}
+                  </div>
                 </div>
               </div>
-              <div class="panel-body">
-                {% block panel_body %}
-                  Body
-                {% endblock panel_body %}
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">{% block table_title %} Title {% endblock table_title %}</h3>
+              </div>
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table id="table" class="table table-bordered table-striped dataTable" role="grid">
+                      <thead>
+                        <tr role="row">
+                          {% block table_columns %}
+                          <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" aria-sort="ascending" style="width: 226px;">
+                            Rendering engine
+                          </th>
+                          <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" style="width: 290px;">
+                            Browser
+                          </th>
+                          {% endblock table_columns %}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% block table_rows %}
+                        <tr role="row" class="odd">
+                          <td class="sorting_1">Gecko</td>
+                          <td>Firefox 1.0</td>
+                        </tr>
+                        {% endblock table_rows %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -98,19 +126,22 @@
 
       </section>
     </div>
-
     {% include "footer.html" %}
-
   </div>
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
   <script src="{% static 'dist/js/material.min.js' %}"></script>
   <script src="{% static 'dist/js/ripples.min.js' %}"></script>
   <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
   <script>$.material.init();</script>
-
+  <script>
+  $(function () {
+    $('#table').DataTable()
+  })
+  </script>
   {% block js %}
   {% endblock js %}
-
 </body>
 </html>

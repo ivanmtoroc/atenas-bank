@@ -1,16 +1,21 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm
+from .forms import NewUserForm
+from .models import Profile
 
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = NewUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('users:signup')
+            return redirect('users:login')
     else:
-        form = SignupForm()
+        form = NewUserForm()
     context = {
-        'form': form
+        'form': form,
+        'profiles': Profile.list()
     }
     return render(request, 'users/new-user.html', context)
+
+def login(request):
+    return render(request, 'users/login.html')
