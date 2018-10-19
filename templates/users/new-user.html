@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+{% block title %} New user {% endblock title %}
+
+{% block page_title %} New user {% endblock page_title %}
+
+{% block page_description %} Create new user {% endblock page_description %}
+
+{% block panel_title %} New user form {% endblock panel_title %}
+
+{% block panel_body %}
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary pull-right" type="submit">Create</button>
+  </form>
+{% endblock panel_body %}
