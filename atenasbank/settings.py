@@ -6,6 +6,8 @@ SECRET_KEY = 'pb)cxa808uq+gi#%=b4*i$2)#j-jxm06wtpgwq5#poz&_y@r#-'
 
 DEBUG = True
 
+LOGIN_URL = '/users/login/'
+
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
@@ -19,6 +21,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     'apps.users',
+    'apps.home',
 ]
 
 MIDDLEWARE = [
