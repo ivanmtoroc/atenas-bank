@@ -1,12 +1,12 @@
-from django import forms
 from django.contrib.auth.models import User
-
+from django import forms
 from .models import Profile
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(min_length = 4, max_length = 20)
     password = forms.CharField(max_length = 30, widget = forms.PasswordInput)
+
 
 class NewUserForm(forms.Form):
     username = forms.CharField(min_length = 4, max_length = 20)
