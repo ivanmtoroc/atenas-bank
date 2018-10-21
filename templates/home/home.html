@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %} Home {% endblock title %}
+
+{% block page_title %} Home {% endblock page_title %}
+
+{% block panel_title %} Users {% endblock panel_title %}
+
+{% block breadcrumb %}{% endblock breadcrumb %}
+
+{% block panel_body %}
+<a href="{% url 'users:new-user' %}" class="btn btn-primary btn-lg btn-block">Create new user</a>
+{% endblock panel_body %}
+
+{% block table %}{% endblock table %}

@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+{% block css %}
+<style media="screen">
+.p-bg {
+  padding: 5px 10px;
+}
+</style>
+{% endblock css %}
+
+{% block title %} Users {% endblock title %}
+
+{% block page_title %} Create new user {% endblock page_title %}
+
+{% block panel_title %} New user form {% endblock panel_title %}
+
+{% block breadcrumb %}
+<li>
+  <a href="{% url 'home:home' %}">Home</a>
+</li>
+<li class="active">Users</li>
+{% endblock breadcrumb %}
+
+{% block panel_body %}
+<form method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <button class="btn btn-primary pull-right" type="submit">Create</button>
+</form>
+{% endblock panel_body %}
+
+{% block table_title %} Users {% endblock table_title %}
+
+{% block table_columns %}
+<th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" aria-sort="ascending" style="width: 226px;">
+  Full name
+</th>
+<th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" style="width: 290px;">
+  Email
+</th>
+<th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" style="width: 290px;">
+  Status
+</th>
+<th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" style="width: 290px;">
+  Actions
+</th>
+{% endblock table_columns %}
+
+{% block table_rows %}
+{% for profile in profiles %}
+<tr role="row" class="odd">
+  <td class="sorting_1">
+    {{ profile.user.get_full_name }}
+  </td>
+  <td>
+    {{ profile.user.email }}
+  </td>
+  <td class="text-center">
+    {% if profile.user.is_active %}
+    <p class="badge bg-green p-bg">
+      Active
+    </p>
+    {% else %}
+    <p class="badge bg-red p-bg">
+      Inactive
+    </p>
+    {% endif %}
+  </td>
+  <td class="text-center">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Actions
+        <span class="fa fa-caret-down"></span>
+        <div class="ripple-container"></div>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a
+          href="#modal-status"
+          class="btn btn-danger btn-sm"
+          data-toggle="modal"
+          data-target="#modal-status"
+          data-id="{{ profile.user.id }}"
+          data-fullname="{{ profile.user.get_full_name }}"
+          data-status="{% if profile.user.is_active %} Deactivate {% else %} Activate  {% endif %}">
+            <i class="fa fa-user-times"></i> Deactivate
+          </a>
+        </li>
+        <li>
+          <a
+          href="#modal-status"
+          class="btn btn-primary btn-sm"
+          data-toggle="modal"
+          data-target="#modal-status"
+          data-id="{{ profile.user.id }}"
+          data-fullname="{{ profile.user.get_full_name }}"
+          data-status="{% if profile.user.is_active %} Deactivate {% else %} Activate  {% endif %}">
+           <i class="fa fa-edit"></i> Update
+          </a>
+        </li>
+        <li>
+          <a
+          href="#modal-moreinfo"
+          class="btn btn-info btn-sm"
+          data-toggle="modal"
+          data-target="#modal-moreinfo"
+          data-username="{{ profile.user.username }}"
+          data-fullname="{{ profile.user.get_full_name }}"
+          data-email="{{ profile.user.email }}"
+          data-status="{% if profile.user.is_active %} Deactivate {% else %} Activate  {% endif %}">
+           <i class="fa fa-info-circle"></i> More info
+          </a>
+        </li>
+      </ul>
+    </div>
+  </td>
+</tr>
+{% endfor %}
+{% endblock table_rows %}
+
+{% block title_modal_status %}
+<h3><span class="status"></span> user</h3>
+{% endblock title_modal_status %}
+
+{% block body_modal_status %}
+<div class="row">
+  <div class="col-sm-12">
+    <p>
+      Are you sure to <strong><span class="status"></span></strong>
+      the user <span class="fullname"></span>?
+    </p>
+  </div>
+</div>
+{% endblock body_modal_status %}
+
+{% block footer_modal_status %}
+<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+<button id="chage-status" type="button" class="btn btn-success"><span class="status"></span></button>
+{% endblock footer_modal_status %}
+
+{% block title_modal_info %}
+<h3>Info</h3>
+{% endblock title_modal_info %}
+
+{% block body_modal_info %}
+<div class="row">
+  <div class="col-sm-12">
+    <p><strong>Username:</strong> <span class="username"></span>.</p>
+    <p><strong>Full name:</strong> <span class="fullname"></span>.</p>
+    <p><strong>Email:</strong> <span class="email"></span>.</p>
+    <p><strong>Status:</strong> <span class="status"></span>.</p>
+  </div>
+</div>
+{% endblock body_modal_info %}
+
+{% block footer_modal_info %}
+<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+{% endblock footer_modal_info %}
+
+{% block js %}
+<script type="text/javascript">
+$('#modal-status').on('shown.bs.modal', function (event) {
+  var target = $(event.relatedTarget)
+  var id = target.data('id')
+  var fullname = target.data('fullname')
+  var status = target.data('status')
+  var w = $(this)
+  w.find('.modal-title .status').text(status)
+  w.find('.modal-body .fullname').text(fullname)
+  w.find('.modal-body .status').text(status)
+  w.find('.modal-footer .status').text(status)
+  $('#chage-status').click(function () {
+    $.post(
+      "{% url 'users:change_status' %}",
+      {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'id': id
+      },
+      function (data) {
+        window.location.href = data.url;
+      }
+    )
+  })
+})
+$('#modal-moreinfo').on('shown.bs.modal', function (event) {
+  var target = $(event.relatedTarget)
+  var username = target.data('username')
+  var fullname = target.data('fullname')
+  var email = target.data('email')
+  var status = target.data('status')
+  var w = $(this)
+  w.find('.modal-body .username').text(username)
+  w.find('.modal-body .fullname').text(fullname)
+  w.find('.modal-body .email').text(email)
+  w.find('.modal-body .status').text(status)
+})
+</script>
+{% endblock js %}

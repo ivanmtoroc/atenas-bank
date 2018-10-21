@@ -34,11 +34,11 @@
           <ul class="nav navbar-nav">
             <li>
               <a href="#">
-                {% block user_name %} Jack Sparrow {% endblock user_name %}
+                {{ request.user.get_full_name }}
               </a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-sign-out"></i> Sign out </a>
+              <a href="{% url 'users:logout' %}"><i class="fa fa-sign-out"></i> Sign out </a>
             </li>
           </ul>
         </div>
@@ -53,19 +53,9 @@
               {% block page_title %} Title {% endblock page_title %}
             </h1>
           </li>
-          <li>
-            <p>
-              {% block page_description %} Description {% endblock page_description %}
-            </p>
-          </li>
         </div>
         <ol class="breadcrumb">
-          {% block breadcrumb %}
-          <li>
-            <a href="#">Level 1</a>
-          </li>
-          <li class="active">Level 2</li>
-          {% endblock breadcrumb %}
+          {% block breadcrumb %}{% endblock breadcrumb %}
         </ol>
       </section>
       <section class="content">
@@ -75,21 +65,22 @@
           <div class="col-sm-4">
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">{% block panel_title %} Title {% endblock panel_title %}</h3>
+                <h3 class="box-title">{% block panel_title %} Panel title {% endblock panel_title %}</h3>
               </div>
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    {% block panel_body %} Body {% endblock panel_body %}
+                    {% block panel_body %} Panel body {% endblock panel_body %}
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {% block table %}
           <div class="col-md-8">
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">{% block table_title %} Title {% endblock table_title %}</h3>
+                <h3 class="box-title">{% block table_title %} Table title {% endblock table_title %}</h3>
               </div>
               <div class="box-body">
                 <div class="row">
@@ -99,10 +90,10 @@
                         <tr role="row">
                           {% block table_columns %}
                           <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1" aria-sort="ascending" style="width: 226px;">
-                            Rendering engine
+                            Track
                           </th>
                           <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1" style="width: 290px;">
-                            Browser
+                            Artist
                           </th>
                           {% endblock table_columns %}
                         </tr>
@@ -110,8 +101,8 @@
                       <tbody>
                         {% block table_rows %}
                         <tr role="row" class="odd">
-                          <td class="sorting_1">Gecko</td>
-                          <td>Firefox 1.0</td>
+                          <td class="sorting_1">Natural</td>
+                          <td>Imagine dragons</td>
                         </tr>
                         {% endblock table_rows %}
                       </tbody>
@@ -121,13 +112,59 @@
               </div>
             </div>
           </div>
+          {% endblock table %}
         </div>
         {% endblock content %}
 
       </section>
     </div>
+
     {% include "footer.html" %}
   </div>
+
+  {% block modals %}
+  <div id="modal-status" class="modal fade modal-status" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="modal-title">{% block title_modal_status %} Title modal {% endblock title_modal_status %}</div>
+        </div>
+        <div class="modal-body">
+          {% block body_modal_status %} Body modal {% endblock body_modal_status %}
+        </div>
+        <div class="modal-footer">
+          {% block footer_modal_status %}
+          <button type="button" class="btn btn-primary">Save</button>
+          {% endblock footer_modal_status %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal-moreinfo" class="modal fade modal-moreinfo" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="modal-title">{% block title_modal_info %} Title modal {% endblock title_modal_info %}</div>
+        </div>
+        <div class="modal-body">
+          {% block body_modal_info %} Body modal {% endblock body_modal_info %}
+        </div>
+        <div class="modal-footer">
+          {% block footer_modal_info %}
+          <button type="button" class="btn btn-primary">Save</button>
+          {% endblock footer_modal_info %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock modals %}
+
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
@@ -141,7 +178,6 @@
     $('#table').DataTable()
   })
   </script>
-  {% block js %}
-  {% endblock js %}
+  {% block js %}{% endblock js %}
 </body>
 </html>
