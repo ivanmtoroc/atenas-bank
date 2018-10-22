@@ -6,6 +6,8 @@ SECRET_KEY = 'pb)cxa808uq+gi#%=b4*i$2)#j-jxm06wtpgwq5#poz&_y@r#-'
 
 DEBUG = True
 
+AUTH_USER_MODEL = 'users.User'
+
 LOGIN_URL = '/users/login/'
 
 ALLOWED_HOSTS = []
