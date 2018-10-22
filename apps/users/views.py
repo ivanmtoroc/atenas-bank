@@ -1,29 +1,68 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http.response import JsonResponse
-from .forms import NewUserForm, LoginForm
-from .models import Profile
+from .forms import UserForm, LoginForm
+from .models import User
 
 
 @login_required
 def users(request):
     context = {
-        'profiles': Profile.list()
+        'users': User.list()
     }
+    form_create = UserForm()
+    form_update = UserForm()
     if request.method == 'POST':
-        form_create = NewUserForm(request.POST)
-        if form_create.is_valid():
-            form_create.save()
-            return redirect('users:crud')
-        context['new'] = True
-    else:
-        form_create = NewUserForm()
-        form_update = NewUserForm()
+        if 'create' in request.POST:
+            form_create = UserForm(request.POST)
+            if form_create.is_valid():
+                form_create.save()
+                return redirect('users:crud')
+            context['new'] = True
+        else:
+            id = request.POST.get('id', None)
+            print('Identificador:', id)
+            user = User.objects.get(id = id)
+            context['id'] = id
+            if 'update-get' in request.POST:
+                form_update = UserForm(instance = user)
+                context['update'] = True
+            else:
+                form_update = UserForm(request.POST, instance = user)
+                if form_update.is_valid():
+                    form_update.save()
+                    return redirect('users:crud')
+                context['update'] = True
     context['form_create'] = form_create
+    context['form_update'] = form_update
     return render(request, 'users/users.html', context)
+
+
+def modifyPizza(request, id):
+	pizza = Pizza.objects.get(id = id)
+	if request.method == 'GET':
+		form = RegisterPizza(instance = pizza)
+	else:
+		form = RegisterPizza(request.POST, request.FILES, instance = pizza)
+		if form.is_valid():
+			form.save()
+			messages.success(request, 'Pizza modificada exitosamente')
+			return redirect('products:pizza')
+		else:
+			messages.error(request, 'Pizza no modificada')
+	context = {
+		'form': form,
+		'pizza': pizza
+	}
+	return render(request, 'products/modify_pizza.html', context)
+
+
+
+
+
+
 
 @login_required
 def delete(request):

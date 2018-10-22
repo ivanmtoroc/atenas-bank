@@ -38,16 +38,16 @@ Users
 {% endblock table_columns %}
 
 {% block table_rows %}
-{% for profile in profiles %}
+{% for user in users %}
 <tr role="row" class="odd">
   <td class="sorting_1">
-    {{ profile.user.get_full_name }}
+    {{ user.get_full_name }}
   </td>
   <td>
-    {{ profile.user.email }}
+    {{ user.email }}
   </td>
   <td class="text-center">
-    {% if profile.user.is_active %}
+    {% if user.is_active %}
     <p class="badge bg-green p-bg">Active</p>
     {% else %}
     <p class="badge bg-red p-bg">Inactive</p>
@@ -65,23 +65,20 @@ Users
           class="btn btn-danger btn-sm"
           data-toggle="modal"
           data-target="#modal-delete"
-          data-id="{{ profile.user.id }}"
-          data-fullname="{{ profile.user.get_full_name }}"
-          data-status="{% if profile.user.is_active %} Deactivate {% else %} Activate  {% endif %}">
+          data-id="{{ user.id }}"
+          data-fullname="{{ user.get_full_name }}"
+          data-status="{% if user.is_active %} Deactivate {% else %} Activate  {% endif %}">
             <i class="fa fa-user-times"></i> Deactivate
           </a>
         </li>
         <li>
-          <a
-          href="#modal-status"
-          class="btn btn-primary btn-sm"
-          data-toggle="modal"
-          data-target="#modal-status"
-          data-id="{{ profile.user.id }}"
-          data-fullname="{{ profile.user.get_full_name }}"
-          data-status="{% if profile.user.is_active %} Deactivate {% else %} Activate  {% endif %}">
-           <i class="fa fa-edit"></i> Update
-          </a>
+          <form method="post" class="text-center">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ user.id }}">
+            <button name="update-get" class="btn btn-primary btn-sm" type="submit">
+              <i class="fa fa-edit"></i> Update
+            </button>
+          </form>
         </li>
         <li>
           <a
@@ -89,10 +86,10 @@ Users
           class="btn btn-info btn-sm"
           data-toggle="modal"
           data-target="#modal-read"
-          data-username="{{ profile.user.username }}"
-          data-fullname="{{ profile.user.get_full_name }}"
-          data-email="{{ profile.user.email }}"
-          data-status="{% if profile.user.is_active %} Deactivate {% else %} Activate  {% endif %}">
+          data-username="{{ user.username }}"
+          data-fullname="{{ user.get_full_name }}"
+          data-email="{{ user.email }}"
+          data-status="{% if user.is_active %} Deactivate {% else %} Activate  {% endif %}">
            <i class="fa fa-info-circle"></i> More info
           </a>
         </li>
@@ -143,6 +140,9 @@ Users
 <form method="post">
   {% csrf_token %}
   {% bootstrap_form form_update %}
+  {% if update %}
+  <input type="hidden" name="id" value="{{ id }}">
+  {% endif %}
   <button name="update" class="btn btn-success pull-right" type="submit">Update</button>
 </form>
 {% endblock modal_update_body %}
@@ -207,6 +207,9 @@ $('#modal-read').on('shown.bs.modal', function (event) {
 $(window).on('load', function () {
   {% if new %}
     $('#modal-create').modal('show');
+  {% endif %}
+  {% if update %}
+    $('#modal-update').modal('show');
   {% endif %}
 })
 </script>
