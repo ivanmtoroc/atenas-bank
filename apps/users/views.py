@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.http.response import JsonResponse
-from .forms import UserForm, LoginForm
+from django.contrib import messages
+from .forms import CreateUserForm, UpdateUserForm, LoginForm
 from .models import User
 
 
@@ -12,11 +12,11 @@ def users(request):
     context = {
         'users': User.list()
     }
-    form_create = UserForm()
-    form_update = UserForm()
+    form_create = CreateUserForm()
+    form_update = UpdateUserForm()
     if request.method == 'POST':
         if 'create' in request.POST:
-            form_create = UserForm(request.POST)
+            form_create = CreateUserForm(request.POST)
             if form_create.is_valid():
                 form_create.save()
                 return redirect('users:crud')
@@ -27,10 +27,10 @@ def users(request):
             user = User.objects.get(id = id)
             context['id'] = id
             if 'update-get' in request.POST:
-                form_update = UserForm(instance = user)
+                form_update = UpdateUserForm(instance = user)
                 context['update'] = True
             else:
-                form_update = UserForm(request.POST, instance = user)
+                form_update = UpdateUserForm(request.POST, instance = user)
                 if form_update.is_valid():
                     form_update.save()
                     return redirect('users:crud')
@@ -38,30 +38,6 @@ def users(request):
     context['form_create'] = form_create
     context['form_update'] = form_update
     return render(request, 'users/users.html', context)
-
-
-def modifyPizza(request, id):
-	pizza = Pizza.objects.get(id = id)
-	if request.method == 'GET':
-		form = RegisterPizza(instance = pizza)
-	else:
-		form = RegisterPizza(request.POST, request.FILES, instance = pizza)
-		if form.is_valid():
-			form.save()
-			messages.success(request, 'Pizza modificada exitosamente')
-			return redirect('products:pizza')
-		else:
-			messages.error(request, 'Pizza no modificada')
-	context = {
-		'form': form,
-		'pizza': pizza
-	}
-	return render(request, 'products/modify_pizza.html', context)
-
-
-
-
-
 
 
 @login_required
@@ -97,9 +73,6 @@ def login_view(request):
         if user:
             login(request, user)
             return redirect('users:crud')
-        else:
-            context['error'] = 'Invalid username or password'
-            return render(request, 'users/login.html', context)
     return render(request, 'users/login.html', context)
 
 

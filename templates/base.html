@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{% static 'dist/css/ripples.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/MaterialAdminLTE.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/skins/skin-red.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/toast/toastr.min.css' %}">
   <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
   <style media="screen">
   .p-bg {
@@ -182,8 +183,24 @@
   <script src="{% static 'dist/js/material.min.js' %}"></script>
   <script src="{% static 'dist/js/ripples.min.js' %}"></script>
   <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
-  <script>$.material.init();</script>
+  <script>$.material.init()</script>
   <script>$(function () { $('#table').DataTable() })</script>
+  <script src="{% static 'plugins/toast/toastr.min.js' %}"></script>
+  <script type="text/javascript">
+  $('form').attr('autocomplete', 'off')
+  {% for msg in messages %}
+  $(document).ready(function () {
+    setTimeout(function () {
+      toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "showEasing": "swing"
+      }
+      toastr["{{ msg.tags }}"]("{{ msg }}")
+    }, 500);
+  });
+  {% endfor %}
+  </script>
   {% block js %}{% endblock js %}
 </body>
 </html>
