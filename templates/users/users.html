@@ -27,7 +27,16 @@ Users
   Full name
 </th>
 <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">
+  Username
+</th>
+<th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">
+  Cedula
+</th>
+<th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">
   Email
+</th>
+<th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">
+  Position
 </th>
 <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">
   Status
@@ -44,7 +53,16 @@ Users
     {{ user.get_full_name }}
   </td>
   <td>
+    {{ user.username }}
+  </td>
+  <td>
+    {{ user.cedula }}
+  </td>
+  <td>
     {{ user.email }}
+  </td>
+  <td>
+    {{ user.position }}
   </td>
   <td class="text-center">
     {% if user.is_active %}
