@@ -9,9 +9,7 @@ from .models import User
 
 @login_required
 def users(request):
-    context = {
-        'users': User.list()
-    }
+    context = { 'users': User.list() }
     form_create = CreateUserForm()
     form_update = UpdateUserForm()
     if request.method == 'POST':
@@ -23,7 +21,6 @@ def users(request):
             context['new'] = True
         else:
             id = request.POST.get('id', None)
-            print('Identificador:', id)
             user = User.objects.get(id = id)
             context['id'] = id
             if 'update-get' in request.POST:

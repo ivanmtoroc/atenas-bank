@@ -80,40 +80,40 @@ Users
         <li>
           <a
           href="#modal-delete"
-          class="btn btn-danger btn-sm"
+          class="btn {% if user.is_active %} btn-danger {% else %} btn-success {% endif %} btn-sm"
           data-toggle="modal"
           data-target="#modal-delete"
           data-id="{{ user.id }}"
           data-fullname="{{ user.get_full_name }}"
-          data-status="{% if user.is_active %} Deactivate {% else %} Activate  {% endif %}">
-            <i class="fa fa-user-times"></i> Deactivate
-          </a>
-        </li>
-        <li>
-          <form method="post" class="text-center">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="{{ user.id }}">
-            <button name="update-get" class="btn btn-primary btn-sm" type="submit">
-              <i class="fa fa-edit"></i> Update
-            </button>
-          </form>
-        </li>
-        <li>
-          <a
-          href="#modal-read"
-          class="btn btn-info btn-sm"
-          data-toggle="modal"
-          data-target="#modal-read"
-          data-username="{{ user.username }}"
-          data-fullname="{{ user.get_full_name }}"
-          data-email="{{ user.email }}"
-          data-status="{% if user.is_active %} Deactivate {% else %} Activate  {% endif %}">
-           <i class="fa fa-info-circle"></i> More info
-          </a>
-        </li>
-      </ul>
-    </div>
-  </td>
+          data-status="{% if user.is_active %} Deactivate {% else %} Activate {% endif %}">
+          {% if user.is_active %} <i class="fa fa-user-times"></i> Deactivate {% else %} <i class="fa fa-user-plus"></i> Activate  {% endif %}
+        </a>
+      </li>
+      <li>
+        <form method="post" class="text-center">
+          {% csrf_token %}
+          <input type="hidden" name="id" value="{{ user.id }}">
+          <button name="update-get" class="btn btn-primary btn-sm" type="submit">
+            <i class="fa fa-edit"></i> Update
+          </button>
+        </form>
+      </li>
+      <li>
+        <a
+        href="#modal-read"
+        class="btn btn-info btn-sm"
+        data-toggle="modal"
+        data-target="#modal-read"
+        data-username="{{ user.username }}"
+        data-fullname="{{ user.get_full_name }}"
+        data-email="{{ user.email }}"
+        data-status="{% if user.is_active %}Active{% else %}Inactive{% endif %}">
+        <i class="fa fa-info-circle"></i> More info
+      </a>
+    </li>
+  </ul>
+</div>
+</td>
 </tr>
 {% endfor %}
 {% endblock table_rows %}
@@ -124,8 +124,24 @@ Users
 {% block modal_create_body %}
 <form method="post">
   {% csrf_token %}
-  {% bootstrap_form form_create %}
-  <button name="create" class="btn btn-success pull-right" type="submit">Create</button>
+  <div class="col-md-6">
+    {% bootstrap_field form_create.username %}
+    {% bootstrap_field form_create.first_name %}
+    {% bootstrap_field form_create.email %}
+    {% bootstrap_field form_create.phone %}
+    {% bootstrap_field form_create.password1 %}
+  </div>
+  <div class="col-md-6">
+    {% bootstrap_field form_create.cedula %}
+    {% bootstrap_field form_create.last_name %}
+    {% bootstrap_field form_create.position %}
+    {% bootstrap_field form_create.address %}
+    {% bootstrap_field form_create.password2 %}
+  </div>
+  <div class="pull-right">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button name="create" class="btn btn-success" type="submit">Create</button>
+  </div>
 </form>
 {% endblock modal_create_body %}
 
@@ -157,11 +173,25 @@ Users
 {% block modal_update_body %}
 <form method="post">
   {% csrf_token %}
-  {% bootstrap_form form_update %}
-  {% if update %}
-  <input type="hidden" name="id" value="{{ id }}">
-  {% endif %}
-  <button name="update" class="btn btn-success pull-right" type="submit">Update</button>
+  <div class="col-md-6">
+    {% bootstrap_field form_update.username %}
+    {% bootstrap_field form_update.first_name %}
+    {% bootstrap_field form_update.email %}
+    {% bootstrap_field form_update.phone %}
+  </div>
+  <div class="col-md-6">
+    {% if update %}
+    <input type="hidden" name="id" value="{{ id }}">
+    {% endif %}
+    {% bootstrap_field form_update.cedula %}
+    {% bootstrap_field form_update.last_name %}
+    {% bootstrap_field form_update.position %}
+    {% bootstrap_field form_update.address %}
+  </div>
+  <div class="pull-right">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button name="update" class="btn btn-success pull-right" type="submit">Update</button>
+  </div>
 </form>
 {% endblock modal_update_body %}
 
@@ -224,10 +254,10 @@ $('#modal-read').on('shown.bs.modal', function (event) {
 })
 $(window).on('load', function () {
   {% if new %}
-    $('#modal-create').modal('show');
+  $('#modal-create').modal('show');
   {% endif %}
   {% if update %}
-    $('#modal-update').modal('show');
+  $('#modal-update').modal('show');
   {% endif %}
 })
 </script>
