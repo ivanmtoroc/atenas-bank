@@ -129,14 +129,14 @@ Users
     {% bootstrap_field form_create.first_name %}
     {% bootstrap_field form_create.email %}
     {% bootstrap_field form_create.phone %}
-    {% bootstrap_field form_create.password1 %}
+    {% bootstrap_field form_create.password1 show_help=False %}
   </div>
   <div class="col-md-6">
     {% bootstrap_field form_create.cedula %}
     {% bootstrap_field form_create.last_name %}
     {% bootstrap_field form_create.position %}
-    {% bootstrap_field form_create.address %}
-    {% bootstrap_field form_create.password2 %}
+    {% bootstrap_field form_create.address  %}
+    {% bootstrap_field form_create.password2 show_help=False %}
   </div>
   <div class="pull-right">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
