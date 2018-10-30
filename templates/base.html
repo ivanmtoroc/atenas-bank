@@ -25,7 +25,7 @@
   {% block css %}{% endblock css %}
 </head>
 <body class="hold-transition skin-red sidebar-mini">
-  <div class="wrapper">
+  <div id="app" class="wrapper">
     <header class="main-header">
       <a href="#" class="logo">
         <span class="logo-mini"></i><b>AB</b></span>
@@ -143,7 +143,11 @@
           <div class="modal-title">{% block modal_read_title %} Modal read title {% endblock modal_read_title %}</div>
         </div>
         <div class="modal-body">{% block modal_read_body %} Modal read body {% endblock modal_read_body %}</div>
-        <div class="modal-footer">{% block modal_read_footer %} Modal read footer {% endblock modal_read_footer %}</div>
+        <div class="modal-footer">
+          {% block modal_read_footer %}
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          {% endblock modal_read_footer %}
+        </div>
       </div>
     </div>
   </div>

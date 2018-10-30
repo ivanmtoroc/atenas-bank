@@ -7,7 +7,7 @@ class User(AbstractUser):
         ('Manager', 'Manager'),
     )
     username = models.CharField(max_length = 20, unique = True)
-    cedula = models.CharField(max_length = 10, unique = True)
+    cedula = models.CharField(max_length = 10, unique = True, primary_key = True)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
     email = models.EmailField(max_length = 200, unique = True)

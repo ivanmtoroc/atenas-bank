@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load bootstrap4 %}
 
 {% block title %} Users {% endblock title %}
 
@@ -11,9 +10,7 @@
 <li class="active">Users</li>
 {% endblock breadcrumb %}
 
-
 {% block panel %}{% endblock panel %}
-
 
 {% block table_title %}
 Users
@@ -47,29 +44,25 @@ Users
 {% endblock table_columns %}
 
 {% block table_rows %}
-{% for user in users %}
-<tr role="row" class="odd">
+<tr v-for="user in users" role="row" class="odd">
   <td class="sorting_1">
-    {{ user.get_full_name }}
+    ${ user.first_name }
   </td>
   <td>
-    {{ user.username }}
+    ${ user.username }
   </td>
   <td>
-    {{ user.cedula }}
+    ${ user.cedula }
   </td>
   <td>
-    {{ user.email }}
+    ${ user.email }
   </td>
   <td>
-    {{ user.position }}
+    ${ user.position }
   </td>
   <td class="text-center">
-    {% if user.is_active %}
-    <p class="badge bg-green p-bg">Active</p>
-    {% else %}
-    <p class="badge bg-red p-bg">Inactive</p>
-    {% endif %}
+    <p v-if="user.is_active" class="badge bg-green p-bg">Active</p>
+    <p v-else class="badge bg-red p-bg">Inactive</p>
   </td>
   <td class="text-center">
     <div class="input-group-btn">
@@ -78,187 +71,163 @@ Users
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a
-          href="#modal-delete"
-          class="btn {% if user.is_active %} btn-danger {% else %} btn-success {% endif %} btn-sm"
-          data-toggle="modal"
-          data-target="#modal-delete"
-          data-id="{{ user.id }}"
-          data-fullname="{{ user.get_full_name }}"
-          data-status="{% if user.is_active %} Deactivate {% else %} Activate {% endif %}">
-          {% if user.is_active %} <i class="fa fa-user-times"></i> Deactivate {% else %} <i class="fa fa-user-plus"></i> Activate  {% endif %}
-        </a>
-      </li>
-      <li>
-        <form method="post" class="text-center">
-          {% csrf_token %}
-          <input type="hidden" name="id" value="{{ user.id }}">
-          <button name="update-get" class="btn btn-primary btn-sm" type="submit">
+          <a href="#modal-delete" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-delete">
+            <span v-if="user.is_active">
+              <i class="fa fa-user-times"></i> Deactivate
+            </span>
+            <span v-else>
+              <i class="fa fa-user-plus"></i> Activate
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#modal-update" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-update">
             <i class="fa fa-edit"></i> Update
-          </button>
-        </form>
-      </li>
-      <li>
-        <a
-        href="#modal-read"
-        class="btn btn-info btn-sm"
-        data-toggle="modal"
-        data-target="#modal-read"
-        data-username="{{ user.username }}"
-        data-fullname="{{ user.get_full_name }}"
-        data-email="{{ user.email }}"
-        data-status="{% if user.is_active %}Active{% else %}Inactive{% endif %}">
-        <i class="fa fa-info-circle"></i> More info
-      </a>
-    </li>
-  </ul>
-</div>
-</td>
+          </a>
+        </li>
+        <li>
+          <a href="#modal-read" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-read">
+            <i class="fa fa-info-circle"></i> More info
+          </a>
+        </li>
+      </ul>
+    </div>
+  </td>
 </tr>
-{% endfor %}
 {% endblock table_rows %}
 
-
-{% block modal_create_title %}<h3>New user</h3>{% endblock modal_create_title %}
+{% block modal_create_title %}
+<h3>New user</h3>
+{% endblock modal_create_title %}
 
 {% block modal_create_body %}
-<form method="post">
-  {% csrf_token %}
-  <div class="col-md-6">
-    {% bootstrap_field form_create.username %}
-    {% bootstrap_field form_create.first_name %}
-    {% bootstrap_field form_create.email %}
-    {% bootstrap_field form_create.phone %}
-    {% bootstrap_field form_create.password1 show_help=False %}
-  </div>
-  <div class="col-md-6">
-    {% bootstrap_field form_create.cedula %}
-    {% bootstrap_field form_create.last_name %}
-    {% bootstrap_field form_create.position %}
-    {% bootstrap_field form_create.address  %}
-    {% bootstrap_field form_create.password2 show_help=False %}
-  </div>
-  <div class="pull-right">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button name="create" class="btn btn-success" type="submit">Create</button>
-  </div>
+<form @submit.prevent="addUser()">
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
 {% endblock modal_create_body %}
 
-
 {% block modal_read_title %}
-<h3>Info</h3>
+<h3>Info user</h3>
 {% endblock modal_read_title %}
 
 {% block modal_read_body %}
-<div class="row">
-  <div class="col-sm-12">
-    <p><strong>Username:</strong> <span class="username"></span>.</p>
-    <p><strong>Full name:</strong> <span class="fullname"></span>.</p>
-    <p><strong>Email:</strong> <span class="email"></span>.</p>
-    <p><strong>Status:</strong> <span class="status"></span>.</p>
-  </div>
-</div>
+<p>Info here</p>
 {% endblock modal_read_body %}
-
-{% block modal_read_footer %}
-<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-{% endblock modal_read_footer %}
-
 
 {% block modal_update_title %}
 <h3>Update user</h3>
 {% endblock modal_update_title %}
 
 {% block modal_update_body %}
-<form method="post">
-  {% csrf_token %}
-  <div class="col-md-6">
-    {% bootstrap_field form_update.username %}
-    {% bootstrap_field form_update.first_name %}
-    {% bootstrap_field form_update.email %}
-    {% bootstrap_field form_update.phone %}
-  </div>
-  <div class="col-md-6">
-    {% if update %}
-    <input type="hidden" name="id" value="{{ id }}">
-    {% endif %}
-    {% bootstrap_field form_update.cedula %}
-    {% bootstrap_field form_update.last_name %}
-    {% bootstrap_field form_update.position %}
-    {% bootstrap_field form_update.address %}
-  </div>
-  <div class="pull-right">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button name="update" class="btn btn-success pull-right" type="submit">Update</button>
-  </div>
+<form @submit.prevent="updateUser()">
+  <button type="submit" class="btn btn-primary">Update</button>
 </form>
 {% endblock modal_update_body %}
 
-
-{% block modal_delete_title %}<h3><span class="status"></span> user</h3>{% endblock modal_delete_title %}
+{% block modal_delete_title %}
+<h3>Delete user</h3>
+{% endblock modal_delete_title %}
 
 {% block modal_delete_body %}
-<div class="row">
-  <div class="col-sm-12">
-    <p>
-      Are you sure to <strong><span class="status"></span></strong>
-      the user <strong><span class="fullname"></span></strong>?
-    </p>
-  </div>
-</div>
+<p>Delete user here</p>
 {% endblock modal_delete_body %}
 
 {% block modal_delete_footer %}
-<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-<button id="delete" type="button" class="btn btn-success"><span class="status"></span></button>
+<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 {% endblock modal_delete_footer %}
 
-
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
-$('#modal-delete').on('shown.bs.modal', function (event) {
-  var target = $(event.relatedTarget)
-  var id = target.data('id')
-  var fullname = target.data('fullname')
-  var status = target.data('status')
-  var w = $(this)
-  w.find('.modal-title .status').text(status)
-  w.find('.modal-body .fullname').text(fullname)
-  w.find('.modal-body .status').text(status)
-  w.find('.modal-footer .status').text(status)
-  $('#delete').click(function () {
-    $.post(
-      "{% url 'users:delete' %}",
-      {
-        'csrfmiddlewaretoken': '{{ csrf_token }}',
-        'id': id
-      },
-      function (data) {
-        window.location.href = data.url;
+Vue.prototype.$http = axios
+new Vue({
+  el: '#app',
+  delimiters: ['${', '}'],
+  data () {
+    return {
+      users: [],
+      loading: false,
+      currentUser: {},
+      newUser: {
+        username: '',
+        cedula: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        address: ''
       }
-    )
-  })
-})
-$('#modal-read').on('shown.bs.modal', function (event) {
-  var target = $(event.relatedTarget)
-  var username = target.data('username')
-  var fullname = target.data('fullname')
-  var email = target.data('email')
-  var status = target.data('status')
-  var w = $(this)
-  w.find('.modal-body .username').text(username)
-  w.find('.modal-body .fullname').text(fullname)
-  w.find('.modal-body .email').text(email)
-  w.find('.modal-body .status').text(status)
-})
-$(window).on('load', function () {
-  {% if new %}
-  $('#modal-create').modal('show');
-  {% endif %}
-  {% if update %}
-  $('#modal-update').modal('show');
-  {% endif %}
+    }
+  },
+  mounted: function () {
+    this.getUsers()
+  },
+  methods: {
+    getUsers: function () {
+      this.loading = true
+      this.$http.get('api/users/')
+      .then((response) => {
+        this.users = response.data
+        this.loading = false
+      })
+      .catch((err) => {
+        this.loading = false
+        console.log(err)
+      })
+    },
+    getUser: function (id) {
+      this.loading = true
+      this.$http.get(`api/users/${id}/`)
+      .then((response) => {
+        this.currentUser = response.data
+        $("#editUserModal").modal('show')
+        this.loading = false
+      })
+      .catch((err) => {
+        this.loading = false
+        console.log(err)
+      })
+    },
+    addUser: function () {
+      console.log('Flag!')
+      this.loading = true
+      this.$http.post('api/users/', this.newUser)
+      .then((response) => {
+        this.loading = false
+        this.getUsers()
+      })
+      .catch((err) => {
+        this.loading = false
+        console.log(err)
+      })
+    },
+    updateUser: function () {
+      this.loading = true
+      this.$http.put(`api/users/${this.currentUser.id}/`, this.currentUser)
+      .then((response) => {
+        this.loading = false
+        this.currentUser = response.data
+        this.getUsers()
+      })
+      .catch((err) => {
+        this.loading = false
+        console.log(err)
+      })
+    },
+    deleteUser: function (id) {
+      this.loading = true
+      this.$http.delete(`api/users/${id}/`)
+      .then((response) => {
+        this.loading = false;
+        this.getUsers();
+      })
+      .catch((err) => {
+        this.loading = false
+        console.log(err)
+      })
+    }
+  }
 })
 </script>
 {% endblock js %}
