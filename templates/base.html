@@ -25,161 +25,160 @@
   {% block css %}{% endblock css %}
 </head>
 <body class="hold-transition skin-red sidebar-mini">
-  <div id="app" class="wrapper">
-    <header class="main-header">
-      <a href="#" class="logo">
-        <span class="logo-mini"></i><b>AB</b></span>
-        <span class="logo-lg">Atenas Bank</span>
-      </a>
-      <nav class="navbar navbar-static-top" role="navigation">
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+  <div id="app">
+    <div class="wrapper">
+      <header class="main-header">
+        <a href="#" class="logo">
+          <span class="logo-mini"></i><b>AB</b></span>
+          <span class="logo-lg">Atenas Bank</span>
         </a>
-        <div class="navbar-custom-menu">
-          <ul class="nav navbar-nav">
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li>
+                <a href="#">
+                  {{ request.user.get_full_name }}
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'users:logout' %}"><i class="fa fa-sign-out"></i> Sign out </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      {% include "sidebar.html" %}
+      <div class="content-wrapper">
+        <section class="content-header">
+          <div class="list-inline">
             <li>
-              <a href="#">
-                {{ request.user.get_full_name }}
-              </a>
+              <h1>
+                {% block page_title %} Title {% endblock page_title %}
+              </h1>
             </li>
-            <li>
-              <a href="{% url 'users:logout' %}"><i class="fa fa-sign-out"></i> Sign out </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    {% include "sidebar.html" %}
-    <div class="content-wrapper">
-      <section class="content-header">
-        <div class="list-inline">
-          <li>
-            <h1>
-              {% block page_title %} Title {% endblock page_title %}
-            </h1>
-          </li>
-        </div>
-        <ol class="breadcrumb">
-          {% block breadcrumb %}{% endblock breadcrumb %}
-        </ol>
-      </section>
-      <section class="content">
-        {% block content %}
-        <div class="row">
-          {% block panel %}
-          <div class="col-sm-12">
-            <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">{% block panel_title %} Panel title {% endblock panel_title %}</h3>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-sm-12">
-                    {% block panel_body %} Panel body {% endblock panel_body %}
+          </div>
+          <ol class="breadcrumb">
+            {% block breadcrumb %}{% endblock breadcrumb %}
+          </ol>
+        </section>
+        <section class="content">
+          {% block content %}
+          <div class="row">
+            {% block panel %}
+            <div class="col-sm-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">{% block panel_title %} Panel title {% endblock panel_title %}</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      {% block panel_body %} Panel body {% endblock panel_body %}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          {% endblock panel %}
-          {% block table %}
-          <div class="col-sm-12">
-            <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">{% block table_title %} Table title {% endblock table_title %}</h3>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <table id="table" class="table table-bordered table-striped dataTable" role="grid">
-                      <thead>
-                        <tr role="row">
-                          {% block table_columns %}
-                          <th>Columns</th>
-                          {% endblock table_columns %}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% block table_rows %}
-                        <tr role="row" class="odd">
-                          <td>Row</td>
-                        </tr>
-                        {% endblock table_rows %}
-                      </tbody>
-                    </table>
+            {% endblock panel %}
+            {% block table %}
+            <div class="col-sm-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">{% block table_title %} Table title {% endblock table_title %}</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table id="table" class="table table-bordered table-striped dataTable" role="grid">
+                        <thead>
+                          <tr role="row">
+                            {% block table_columns %}
+                            <th>Columns</th>
+                            {% endblock table_columns %}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% block table_rows %}
+                          {% endblock table_rows %}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            {% endblock table %}
           </div>
-          {% endblock table %}
-        </div>
-        {% endblock content %}
-      </section>
-    </div>
-    {% include "footer.html" %}
-  </div>
-  {% block modals %}
-  <div id="modal-create" class="modal fade modal-create" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">×</span>
-          </button>
-          <div class="modal-title">{% block modal_create_title %} Modal create title {% endblock modal_create_title %}</div>
-        </div>
-        <div class="modal-body">{% block modal_create_body %} Modal create body {% endblock modal_create_body %}</div>
-        <div class="modal-footer"></div>
+          {% endblock content %}
+        </section>
       </div>
+      {% include "footer.html" %}
     </div>
-  </div>
-  <div id="modal-read" class="modal fade modal-read" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">×</span>
-          </button>
-          <div class="modal-title">{% block modal_read_title %} Modal read title {% endblock modal_read_title %}</div>
-        </div>
-        <div class="modal-body">{% block modal_read_body %} Modal read body {% endblock modal_read_body %}</div>
-        <div class="modal-footer">
-          {% block modal_read_footer %}
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          {% endblock modal_read_footer %}
+    {% block modals %}
+    <div id="modal-create" class="modal fade modal-create" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-title">{% block modal_create_title %} Modal create title {% endblock modal_create_title %}</div>
+          </div>
+          <div class="modal-body">{% block modal_create_body %} Modal create body {% endblock modal_create_body %}</div>
+          <div class="modal-footer"></div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="modal-update" class="modal fade modal-update" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">×</span>
-          </button>
-          <div class="modal-title">{% block modal_update_title %} Modal update title {% endblock modal_update_title %}</div>
+    <div id="modal-read" class="modal fade modal-read" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-title">{% block modal_read_title %} Modal read title {% endblock modal_read_title %}</div>
+          </div>
+          <div class="modal-body">{% block modal_read_body %} Modal read body {% endblock modal_read_body %}</div>
+          <div class="modal-footer">
+            {% block modal_read_footer %}
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            {% endblock modal_read_footer %}
+          </div>
         </div>
-        <div class="modal-body">{% block modal_update_body %} Modal update body {% endblock modal_update_body %}</div>
-        <div class="modal-footer"></div>
       </div>
     </div>
-  </div>
-  <div id="modal-delete" class="modal fade modal-delete" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">×</span>
-          </button>
-          <div class="modal-title">{% block modal_delete_title %} Modal delete title {% endblock modal_delete_title %}</div>
+    <div id="modal-update" class="modal fade modal-update" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-title">{% block modal_update_title %} Modal update title {% endblock modal_update_title %}</div>
+          </div>
+          <div class="modal-body">{% block modal_update_body %} Modal update body {% endblock modal_update_body %}</div>
+          <div class="modal-footer"></div>
         </div>
-        <div class="modal-body">{% block modal_delete_body %} Modal delete body {% endblock modal_delete_body %}</div>
-        <div class="modal-footer">{% block modal_delete_footer %} Modal delete footer {% endblock modal_delete_footer %}</div>
       </div>
     </div>
+    <div id="modal-delete" class="modal fade modal-delete" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-title">{% block modal_delete_title %} Modal delete title {% endblock modal_delete_title %}</div>
+          </div>
+          <div class="modal-body">{% block modal_delete_body %} Modal delete body {% endblock modal_delete_body %}</div>
+          <div class="modal-footer">{% block modal_delete_footer %} Modal delete footer {% endblock modal_delete_footer %}</div>
+        </div>
+      </div>
+    </div>
+    {% endblock modals %}
   </div>
-  {% endblock modals %}
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
