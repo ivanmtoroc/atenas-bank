@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+import django.contrib.auth.password_validation as validators
 from rest_framework import serializers
 from .models import User
 
@@ -27,6 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def validate_password1(self, value):
+        validators.validate_password(password = value)
         data = self.get_initial()
         password2 = data.get('password2')
         print(value)
@@ -42,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
             first_name = validated_data['first_name'],
             last_name = validated_data['last_name'],
             email = validated_data['email'],
+            position = validated_data['position'],
             phone = validated_data['phone'],
             address = validated_data['address'],
             password = validated_data['password']

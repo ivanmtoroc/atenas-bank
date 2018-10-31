@@ -2,8 +2,7 @@ from django.shortcuts import render
 
 
 def requests(request):
-    return render(request, 'tickets/requests.html', {})
-
+    return render(request, 'tickets/requests.html')
 
 def dashboard(request):
-    return render(request, 'tickets/dashboard.html', {})
+    return render(request, 'tickets/dashboard.html')

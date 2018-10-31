@@ -1,13 +1,15 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+
+POSITIONS = (
+    ('Operator', 'Operator'),
+    ('Manager', 'Manager')
+)
 
 class User(AbstractUser):
-    POSITIONS = (
-        ('Operator', 'Operator'),
-        ('Manager', 'Manager'),
-    )
-    username = models.CharField(max_length = 20, unique = True)
     cedula = models.CharField(max_length = 10, unique = True, primary_key = True)
+    username = models.CharField(max_length = 20, unique = True)
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
     email = models.EmailField(max_length = 200, unique = True)
@@ -18,12 +20,5 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-    @staticmethod
-    def list():
-        try:
-            return User.objects.all()
-        except User.DoesNotExist:
-            return None
-
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'cedula', 'position']
+    REQUIRED_FIELDS = ['cedula', 'first_name', 'last_name', 'email', 'position']
     USERNAME_FIELD = 'username'
