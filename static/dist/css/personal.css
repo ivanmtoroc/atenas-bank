@@ -1,0 +1,31 @@
+.p-bg {
+  padding: 5px 10px;
+}
+
+.vh {
+  height: 100vh;
+}
+
+.body {
+  background-image: url("{% static 'images/background.png' %}");
+  background-size: cover;
+}
+
+.vcenter {
+  display: flex;
+  align-items: center;
+}
+
+.module h3 {
+  margin: 5px;
+}
+
+.module p {
+  font-size: 40px;
+  line-height: 45px;
+}
+
+.info {
+  margin: 0px;
+  font-size: 70px;
+}

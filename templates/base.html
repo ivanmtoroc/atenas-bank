@@ -14,13 +14,9 @@
   <link rel="stylesheet" href="{% static 'dist/css/ripples.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/MaterialAdminLTE.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/skins/skin-red.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/personal.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/toast/toastr.min.css' %}">
   <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
-  <style media="screen">
-  .p-bg {
-    padding: 5px 10px;
-  }
-  </style>
   <title>{% block title %} Atenas Bank {% endblock title %}</title>
   {% block css %}{% endblock css %}
 </head>
@@ -39,7 +35,7 @@
             <ul class="nav navbar-nav">
               <li>
                 <a href="#">
-                  {{ request.user.get_full_name }}
+                  Username
                 </a>
               </li>
               <li>
@@ -55,7 +51,7 @@
           <div class="list-inline">
             <li>
               <h1>
-                {% block page_title %} Title {% endblock page_title %}
+                {% block page_title %} Page title {% endblock page_title %}
               </h1>
             </li>
           </div>
@@ -95,12 +91,13 @@
                         <thead>
                           <tr role="row">
                             {% block table_columns %}
-                            <th>Columns</th>
+                            <th>Table columns</th>
                             {% endblock table_columns %}
                           </tr>
                         </thead>
                         <tbody>
                           {% block table_rows %}
+                          <tr><td>Table rows</td></tr>
                           {% endblock table_rows %}
                         </tbody>
                       </table>
@@ -173,12 +170,13 @@
             <div class="modal-title">{% block modal_delete_title %} Modal delete title {% endblock modal_delete_title %}</div>
           </div>
           <div class="modal-body">{% block modal_delete_body %} Modal delete body {% endblock modal_delete_body %}</div>
-          <div class="modal-footer">{% block modal_delete_footer %} Modal delete footer {% endblock modal_delete_footer %}</div>
+          <div class="modal-footer"></div>
         </div>
       </div>
     </div>
     {% endblock modals %}
   </div>
+  {% block vue %}{% endblock vue %}
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
@@ -186,9 +184,9 @@
   <script src="{% static 'dist/js/material.min.js' %}"></script>
   <script src="{% static 'dist/js/ripples.min.js' %}"></script>
   <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+  <script src="{% static 'plugins/toast/toastr.min.js' %}"></script>
   <script>$.material.init()</script>
   <script>$(function () { $('#table').DataTable() })</script>
-  <script src="{% static 'plugins/toast/toastr.min.js' %}"></script>
   <script type="text/javascript">
   $('form').attr('autocomplete', 'off')
   {% for msg in messages %}

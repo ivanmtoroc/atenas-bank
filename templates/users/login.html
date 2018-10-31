@@ -3,13 +3,13 @@
 
 {% block title %} Login {% endblock title %}
 
-{% block card_title %}Atenas bank login{% endblock card_title %}
+{% block card_title %} Atenas bank login {% endblock card_title %}
 
 {% block card_body %}
 {% if error %}
 <p class="alert alert-danger">{{ error }}</p>
 {% endif%}
-<form method="POST">
+<form method="post">
   {% csrf_token %}
   {% bootstrap_form form %}
   <button class="btn btn-primary btn-block" type="submit">Login</button>
