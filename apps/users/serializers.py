@@ -31,8 +31,6 @@ class UserSerializer(serializers.ModelSerializer):
         validators.validate_password(password = value)
         data = self.get_initial()
         password2 = data.get('password2')
-        print(value)
-        print(password2)
         if value != password2:
             raise ValidationError("Password does not match.")
         return value
