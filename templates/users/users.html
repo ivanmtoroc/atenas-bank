@@ -69,23 +69,17 @@ Users
 {% block modal_create_title %}<h3>New user</h3>{% endblock modal_create_title %}
 
 {% block modal_create_body %}
-<div v-if="showErrors" class="alert alert-danger">
-  <h4><i class="icon fa fa-ban"></i> Errors!</h4>
-  <ul>
-    <li v-for="error in errors">
-      <span v-for="e in error">${ e }</span>
-    </li>
-  </ul>
-</div>
 <form @submit.prevent="addUser()">
   <div class="row">
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.cedula ? 'has-error' : '']">
       <label for="cedula">Cedula</label>
       <input id="cedula" placeholder="Cedula" v-model="newUser.cedula" type="text" class="form-control" required="required">
+      <p v-for="error in errors.cedula" class="text-red">${ error }</p>
     </div>
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.username ? 'has-error' : '']">
       <label for="username">Username</label>
       <input id="username" placeholder="Username" v-model="newUser.username" type="text" class="form-control" required="required">
+      <p v-for="error in errors.username" class="text-red">${ error }</p>
     </div>
   </div>
   <div class="row">
@@ -99,16 +93,18 @@ Users
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.email ? 'has-error' : '']">
       <label for="email">Email</label>
       <input id="email" placeholder="Email" v-model="newUser.email" type="text" class="form-control" required="required">
+      <p v-for="error in errors.email" class="text-red">${ error }</p>
     </div>
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.position ? 'has-error' : '']">
       <label>Position</label>
       <select v-model="newUser.position" class="form-control" required="required">
         <option>Operator</option>
         <option>Manager</option>
       </select>
+      <p v-for="error in errors.position" class="text-red">${ error }</p>
     </div>
   </div>
   <div class="row">
@@ -122,13 +118,15 @@ Users
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.password1 ? 'has-error' : '']">
       <label for="password1">Password</label>
       <input id="password1" placeholder="Password" v-model="newUser.password1" type="password" class="form-control" required="required">
+      <p v-for="error in errors.password1" class="text-red">${ error }</p>
     </div>
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.password1 ? 'has-error' : '']">
       <label for="password2">Password confirmation</label>
       <input id="password2" placeholder="Password confirmation" v-model="newUser.password2" type="password" class="form-control" required="required">
+      <p v-for="error in errors.password1" class="text-red">${ error }</p>
     </div>
   </div>
   <div class="pull-right">
@@ -154,24 +152,19 @@ Users
 {% block modal_update_title %}<h3>Update user</h3>{% endblock modal_update_title %}
 
 {% block modal_update_body %}
-<div v-if="showErrors" class="alert alert-danger">
-  <h4><i class="icon fa fa-ban"></i> Errors!</h4>
-  <ul>
-    <li v-for="error in errors">
-      <span v-for="e in error">${ e }</span>
-    </li>
-  </ul>
-</div>
 <form @submit.prevent="updateUser()">
   <div class="row">
     <div class="col-md-6 form-group">
       <label for="cedula2">Cedula</label>
       <input id="cedula2" placeholder="Cedula" v-model="currentUser.cedula" type="text" class="form-control" required="required" readonly>
     </div>
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group" :class="[ errors.username ? 'has-error' : '']">
       <label for="username2">Username</label>
       <input id="username2" placeholder="Username" v-model="currentUser.username" type="text" class="form-control" required="required">
+      <p v-for="error in errors.username" class="text-red">${ error }</p>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-6 form-group">
       <label for="first_name2">First name</label>
       <input id="first_name2" placeholder="First name" v-model="currentUser.first_name" type="text" class="form-control" required="required">
@@ -180,14 +173,23 @@ Users
       <label for="last_name2">Last name</label>
       <input id="last_name2" placeholder="Last name" v-model="currentUser.last_name" type="text" class="form-control" required="required">
     </div>
-    <div class="col-md-6 form-group">
+  </div>
+  <div class="row">
+    <div class="col-md-6 form-group" :class="[ errors.email ? 'has-error' : '']">
       <label for="email2">Email</label>
       <input id="email2" placeholder="Email" v-model="currentUser.email" type="text" class="form-control" required="required">
+      <p v-for="error in errors.email" class="text-red">${ error }</p>
     </div>
-    <div class="col-md-6 form-group">
-      <label for="position2">Position</label>
-      <input id="position2" placeholder="Position" v-model="currentUser.position" type="text" class="form-control" required="required">
+    <div class="col-md-6 form-group" :class="[ errors.position ? 'has-error' : '']">
+      <label>Position</label>
+      <select v-model="currentUser.position" class="form-control" required="required">
+        <option>Operator</option>
+        <option>Manager</option>
+      </select>
+      <p v-for="error in errors.position" class="text-red">${ error }</p>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-6 form-group">
       <label for="address2">Address</label>
       <input id="address2" placeholder="Address" v-model="currentUser.address" type="text" class="form-control" required="required">
@@ -354,10 +356,7 @@ new Vue({
         password2: null
       }
       this.showErrors = false
-    },
-    isEmpty (obj) {
-      for (var item in obj) { return false }
-      return true
+      this.errors = {}
     }
   }
 })
