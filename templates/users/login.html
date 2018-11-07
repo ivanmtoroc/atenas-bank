@@ -1,17 +1,29 @@
-{% extends "users/base.html" %}
+{% extends "card_base.html" %}
+{% load staticfiles %}
 {% load bootstrap4 %}
+
+{% block css %}
+<style media="screen">
+.body {
+  background-image: url("{% static 'images/background.png' %}");
+  background-size: cover;
+}
+</style>
+{% endblock css %}
 
 {% block title %} Login {% endblock title %}
 
 {% block card_title %} Atenas bank login {% endblock card_title %}
 
 {% block card_body %}
-{% if error %}
-<p class="alert alert-danger">{{ error }}</p>
-{% endif%}
-<form method="post">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  <button class="btn btn-primary btn-block" type="submit">Login</button>
-</form>
+<div class="content">
+  {% if error %}
+  <p class="alert alert-danger">{{ error }}</p>
+  {% endif%}
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary btn-block" type="submit">Login</button>
+  </form>
+</div>
 {% endblock card_body %}
