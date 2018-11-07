@@ -1,17 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   {% load staticfiles %}
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bower_components/Ionicons/css/ionicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/bootstrap-material-design.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/MaterialAdminLTE.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/ripples.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/skins/skin-red.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/personal.css' %}">
   <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
   <title>{% block title %} Atenas Bank {% endblock title %}</title>
+  {% block css %}{% endblock css %}
 </head>
 <body class="body">
+  {% block content %}
   <div class="container">
     <div class="vh row text-center vcenter">
       <div class="col-md-6 col-md-offset-3">
@@ -19,16 +28,19 @@
           <div class="card-body">
             <h1 class="card-title">{% block card_title %} Card title {% endblock card_title %}</h1>
             <div class="card-text">
-              {% block card_body %}Card body{% endblock card_body %}
+              {% block card_body %} Card body {% endblock card_body %}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  {% endblock content %}
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'dist/js/material.min.js' %}"></script>
+  <script src="{% static 'dist/js/ripples.min.js' %}"></script>
+  <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
   <script>$.material.init();</script>
 </body>
 </html>

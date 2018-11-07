@@ -6,11 +6,6 @@
   height: 100vh;
 }
 
-.body {
-  background-image: url("{% static 'images/background.png' %}");
-  background-size: cover;
-}
-
 .vcenter {
   display: flex;
   align-items: center;
