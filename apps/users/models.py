@@ -3,8 +3,8 @@ from django.db import models
 
 
 POSITIONS = (
-    ('Operator', 'Operator'),
-    ('Manager', 'Manager')
+    ('OPT', 'Operator'),
+    ('MNG', 'Manager')
 )
 
 class User(AbstractUser):
