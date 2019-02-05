@@ -1,8 +1,7 @@
-from django.contrib import admin
+# Django
 from django.urls import path, include
+from django.contrib import admin
 
 urlpatterns = [
-    path('users/', include('apps.users.urls', namespace='users')),
-    path('home/', include('apps.home.urls', namespace='home')),
-    path('tickets/', include('apps.tickets.urls', namespace='tickets')),
+    path('', include('apps.users.urls', namespace = 'users')),
 ]

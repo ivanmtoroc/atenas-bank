@@ -1,7 +1,12 @@
+# Django
+from django.contrib.auth import password_validation as validators
 from django.core.exceptions import ValidationError
-import django.contrib.auth.password_validation as validators
+
+# Django Rest Framework
 from rest_framework import serializers
-from .models import User
+
+# Models
+from apps.users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(source = 'password')
@@ -11,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'username',
-            'cedula',
+            'identification',
             'first_name',
             'last_name',
             'email',
@@ -38,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(
             username = validated_data['username'],
-            cedula = validated_data['cedula'],
+            identification = validated_data['identification'],
             first_name = validated_data['first_name'],
             last_name = validated_data['last_name'],
             email = validated_data['email'],
