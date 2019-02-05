@@ -82,6 +82,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import HeaderComponent from '@/components/layout/HeaderComponent.vue'
 import SidebarComponent from '@/components/layout/SidebarComponent.vue'
 import FooterComponent from '@/components/layout/FooterComponent.vue'
@@ -92,6 +94,15 @@ export default {
     HeaderComponent,
     SidebarComponent,
     FooterComponent
+  },
+  computed: {
+    ...mapState('users', ['users'])
+  },
+  methods: {
+    ...mapActions('users', ['getUsers'])
+  },
+  mounted () {
+    this.getUsers()
   }
 }
 </script>
