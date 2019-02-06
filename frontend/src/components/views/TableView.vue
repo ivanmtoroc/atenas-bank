@@ -10,12 +10,10 @@
             <div class="col-sm-12">
               <table id="table" class="table table-bordered table-striped dataTable" role="grid">
                 <thead>
-                  <tr role="row">
-                    <th>Table columns</th>
-                  </tr>
+                  <table-columns></table-columns>
                 </thead>
                 <tbody>
-                  <tr><td>Table rows</td></tr>
+                  <table-rows></table-rows>
                 </tbody>
               </table>
             </div>
@@ -25,3 +23,26 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+
+import TableColumns from '@/components/views/TableColumns.vue'
+import TableRows from '@/components/views/TableRows.vue'
+
+export default {
+  components: {
+    TableColumns,
+    TableRows
+  },
+  computed: {
+    ...mapState('users', ['users'])
+  },
+  methods: {
+    ...mapActions('users', ['getUsers'])
+  },
+  mounted () {
+    this.getUsers()
+  }
+}
+</script>
