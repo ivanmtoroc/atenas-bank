@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <tbody>
     <tr v-for="(user, index) in users" :key="index" role="row" class="odd">
       <td class="sorting_1">{{ user.first_name }} {{ user.last_name }}</td>
       <td>{{ user.username }}</td>
@@ -34,7 +34,7 @@
         </div>
       </td>
     </tr>
-  </div>
+  </tbody>
 </template>
 
 <script>
