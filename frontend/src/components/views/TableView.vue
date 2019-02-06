@@ -9,12 +9,8 @@
           <div class="row">
             <div class="col-sm-12">
               <table id="table" class="table table-bordered table-striped dataTable" role="grid">
-                <thead>
-                  <table-columns></table-columns>
-                </thead>
-                <tbody>
-                  <table-rows></table-rows>
-                </tbody>
+                <table-columns></table-columns>
+                <table-rows></table-rows>
               </table>
             </div>
           </div>
