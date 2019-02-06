@@ -1,10 +1,12 @@
-# Django
-from apps.users.serializers import UserSerializer
-from apps.users.models import User
-
 # Django Rest Framework
 from rest_framework.response import Response
 from rest_framework import viewsets
+
+# Serializers
+from apps.users.serializers import UserSerializer
+
+# Models
+from apps.users.models import User
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -14,4 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.get_object()
         user.is_active = not user.is_active
         user.save()
-        return Response(data = 'Delete success.')
+        data = {
+            'message': 'Delete success.'
+        }
+        return Response(data = data)

@@ -1,5 +1,5 @@
 # Django
-from django.contrib.auth import password_validation as validators
+from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
 # Django Rest Framework
@@ -9,8 +9,8 @@ from rest_framework import serializers
 from apps.users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
-    password1 = serializers.CharField(source = 'password')
-    password2 = serializers.CharField(source = 'password')
+    password_registration = serializers.CharField(source = 'password')
+    password_confirmation = serializers.CharField(source = 'password')
 
     class Meta:
         model = User
@@ -24,34 +24,22 @@ class UserSerializer(serializers.ModelSerializer):
             'phone',
             'address',
             'position',
-            'password1',
-            'password2'
+            'password_registration',
+            'password_confirmation'
         )
         extra_kwargs = {
-            'password1': { 'write_only': True },
-            'password2': { 'write_only': True }
+            'password_registration': { 'write_only': True },
+            'password_confirmation': { 'write_only': True }
         }
 
-    def validate_password1(self, value):
-        validators.validate_password(password = value)
+    def validate_password_registration(self, value):
         data = self.get_initial()
-        password2 = data.get('password2')
-        if value != password2:
+        password_confirmation = data.get('password_confirmation')
+        if value != password_confirmation:
             raise ValidationError("Password does not match.")
+        password_validation.validate_password(value)
         return value
 
-    def create(self, validated_data):
-        user = User(
-            username = validated_data['username'],
-            identification = validated_data['identification'],
-            first_name = validated_data['first_name'],
-            last_name = validated_data['last_name'],
-            email = validated_data['email'],
-            position = validated_data['position'],
-            phone = validated_data['phone'],
-            address = validated_data['address'],
-            password = validated_data['password']
-        )
-        user.set_password(user.password)
-        user.save()
-        return validated_data
+    def create(self, data):        
+        user = User.objects.create_user(**data)
+        return user
