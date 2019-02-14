@@ -1,4 +1,8 @@
+# Backend
 .env/
-**/__pycache__/
-**/migrations/*
-.idea/
+__pycache__/
+migrations/
+
+# Frontend
+node_modules
+frontend/dist/
