@@ -9,8 +9,12 @@
           <div class="row">
             <div class="col-sm-12">
               <table id="table" class="table table-bordered table-striped dataTable" role="grid">
-                <table-columns></table-columns>
-                <table-rows></table-rows>
+                <vue-good-table
+                  :columns="columns"
+                  :rows="rows"
+                  :line-numbers="true"
+                  :search-options="{ enabled: true }"
+                  :pagination-options="{ enabled: true }" />
               </table>
             </div>
           </div>
@@ -22,14 +26,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { VueGoodTable } from 'vue-good-table'
 
-import TableColumns from '@/components/views/TableColumns.vue'
-import TableRows from '@/components/views/TableRows.vue'
+import 'vue-good-table/dist/vue-good-table.css'
 
 export default {
   components: {
-    TableColumns,
-    TableRows
+    VueGoodTable
   },
   computed: {
     ...mapState('users', ['users'])

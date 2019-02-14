@@ -15,7 +15,40 @@ const state = {
     position: '',
     passwd: '',
     passwd_confirmation: ''
-  }
+  },
+  columns: [
+    {
+      label: 'Name',
+      field: 'name'
+    },
+    {
+      label: 'Age',
+      field: 'age',
+      type: 'number',
+      html: true
+    },
+    {
+      label: 'Created On',
+      field: 'createdAt',
+      type: 'date',
+      dateInputFormat: 'YYYY-MM-DD',
+      dateOutputFormat: 'MMM Do YY'
+    },
+    {
+      label: 'Percent',
+      field: 'score',
+      type: 'percentage'
+    }
+  ],
+  rows: [
+    {
+      id: 1,
+      name: 'John',
+      age: '<p class="badge bg-green p-bg">Active</p>',
+      createdAt: '201-10-31:9: 35 am',
+      score: 0.03343
+    }
+  ]
 }
 
 const mutations = {
