@@ -9,4 +9,5 @@ urlpatterns = [
     path('', include('apps.offices.urls', namespace = 'offices')),
     path('', include('apps.ads.urls', namespace = 'ads')),
     path('', include('apps.clients.urls', namespace = 'clients')),
+    path('', include('apps.tickets.urls', namespace = 'tickets'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

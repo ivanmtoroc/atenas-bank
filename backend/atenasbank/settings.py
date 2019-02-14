@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'apps.offices',
     'apps.ads',
     'apps.clients',
+    'apps.tickets'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
