@@ -51,6 +51,12 @@ const state = {
   ]
 }
 
+const getters = {
+  users: state => state.users,
+  columns: state => state.columns,
+  rows: state => state.rows
+}
+
 const mutations = {
   setUsers (state, users) {
     state.users = users
@@ -68,6 +74,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions
 }

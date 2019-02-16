@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { VueGoodTable } from 'vue-good-table'
 
 import 'vue-good-table/dist/vue-good-table.css'
@@ -35,7 +35,7 @@ export default {
     VueGoodTable
   },
   computed: {
-    ...mapState('users', ['users'])
+    ...mapGetters('users', ['users', 'columns', 'rows'])
   },
   methods: {
     ...mapActions('users', ['getUsers'])
