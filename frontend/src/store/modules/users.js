@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+const http = axios.create({
+  baseURL: 'http://localhost:8000'
+})
+
 const state = {
   users: [],
   currentUser: {},
@@ -17,57 +21,56 @@ const state = {
     passwd_confirmation: ''
   },
   columns: [
-    {
-      label: 'Name',
-      field: 'name'
-    },
-    {
-      label: 'Age',
-      field: 'age',
-      type: 'number',
-      html: true
-    },
-    {
-      label: 'Created On',
-      field: 'createdAt',
-      type: 'date',
-      dateInputFormat: 'YYYY-MM-DD',
-      dateOutputFormat: 'MMM Do YY'
-    },
-    {
-      label: 'Percent',
-      field: 'score',
-      type: 'percentage'
-    }
-  ],
-  rows: [
-    {
-      id: 1,
-      name: 'John',
-      age: '<p class="badge bg-green p-bg">Active</p>',
-      createdAt: '201-10-31:9: 35 am',
-      score: 0.03343
-    }
+    { label: 'Full name', field: 'name' },
+    { label: 'Username', field: 'username' },
+    { label: 'Identification', field: 'id' },
+    { label: 'Email', field: 'email' },
+    { label: 'Position', field: 'position' },
+    { label: 'Status', field: 'status', type: 'boolean', thClass: 'text-center' },
+    { label: 'Actions', field: 'actions' }
   ]
 }
 
 const getters = {
   users: state => state.users,
   columns: state => state.columns,
-  rows: state => state.rows
+  rows: state => {
+    var rows = []
+    state.users.forEach(user => {
+      rows.push({
+        name: `${user['first_name']} ${user['last_name']}`,
+        username: user['username'],
+        id: user['identification'],
+        email: user['email'],
+        position: user['position'],
+        status: user['is_active']
+      })
+    })
+    return rows
+  },
+  currentUser: state => state.currentUser
 }
 
 const mutations = {
   setUsers (state, users) {
     state.users = users
+  },
+  setUser (state, user) {
+    state.currentUser = user
   }
 }
 
 const actions = {
   async getUsers ({ commit }) {
-    this.loading = true
-    const response = await axios.get('http://localhost:8000/users/')
+    const response = await http.get('users/')
     commit('setUsers', response.data)
+  },
+  async getUser ({ commit }, identification) {
+    const response = await http.get(`users/${identification}/`)
+    commit('setUser', response.data)
+  },
+  async deleteUser ({ commit }, identification) {
+    await http.delete(`users/${identification}/`)
   }
 }
 

@@ -64,20 +64,7 @@
         </div>
       </div>
     </div>
-    <div id="modal-delete" class="modal fade modal-delete" style="display: none;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="modal-title">Modal delete title</div>
-          </div>
-          <div class="modal-body">Modal delete body</div>
-          <div class="modal-footer"></div>
-        </div>
-      </div>
-    </div>
+    <modal-delete></modal-delete>
   </div>
 </template>
 
@@ -86,11 +73,14 @@ import HeaderComponent from '@/components/layout/HeaderComponent.vue'
 import SidebarComponent from '@/components/layout/SidebarComponent.vue'
 import FooterComponent from '@/components/layout/FooterComponent.vue'
 
+import ModalDelete from '@/components/modals/ModalDelete.vue'
+
 export default {
   components: {
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    ModalDelete
   }
 }
 </script>
