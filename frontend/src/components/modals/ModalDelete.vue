@@ -20,8 +20,8 @@
             </div>
           </div>
           <div class="pull-right">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button @click="deleteUser(currentUser.identification)" type="button" :class="[ currentUser.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            <button data-dismiss="modal" @click="deleteUser(currentUser.identification)" type="button" :class="[ currentUser.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
               {{ currentUser.is_active ? 'Deactivate' : 'Active' }}
             </button>
           </div>

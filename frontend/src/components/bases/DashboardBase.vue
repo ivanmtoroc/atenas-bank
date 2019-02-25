@@ -34,22 +34,7 @@
         </div>
       </div>
     </div>
-    <div id="modal-read" class="modal fade modal-read" style="display: none;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="modal-title">Modal read title</div>
-          </div>
-          <div class="modal-body">Modal read body</div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <modal-read></modal-read>
     <div id="modal-update" class="modal fade modal-update" style="display: none;">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -74,13 +59,15 @@ import SidebarComponent from '@/components/layout/SidebarComponent.vue'
 import FooterComponent from '@/components/layout/FooterComponent.vue'
 
 import ModalDelete from '@/components/modals/ModalDelete.vue'
+import ModalRead from '@/components/modals/ModalRead.vue'
 
 export default {
   components: {
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    ModalDelete
+    ModalDelete,
+    ModalRead
   }
 }
 </script>

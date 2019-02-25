@@ -30,7 +30,7 @@
                     <a href="#modal-update" class="btn.btn-app btn-primary btn-sm btns" data-toggle="modal" data-target="#modal-update">
                       <i class="fa fa-edit"></i>
                     </a>
-                    <a href="#modal-read" class="btn.btn-app btn-info btn-sm btns" data-toggle="modal" data-target="#modal-read">
+                    <a @click="getUser(props.row.id)" href="#modal-read" class="btn.btn-app btn-info btn-sm btns" data-toggle="modal" data-target="#modal-read">
                       <i class="fa fa-info-circle"></i>
                     </a>
                   </span>

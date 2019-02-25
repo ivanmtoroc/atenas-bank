@@ -69,8 +69,9 @@ const actions = {
     const response = await http.get(`users/${identification}/`)
     commit('setUser', response.data)
   },
-  async deleteUser ({ commit }, identification) {
+  async deleteUser ({ dispatch, commit }, identification) {
     await http.delete(`users/${identification}/`)
+    await dispatch('getUsers')
   }
 }
 
