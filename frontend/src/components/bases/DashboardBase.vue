@@ -7,9 +7,7 @@
         <section class="content-header">
           <div class="list-inline">
             <li>
-              <h1>
-                Page title
-              </h1>
+              <h1>Users</h1>
             </li>
           </div>
           <ol class="breadcrumb"></ol>
@@ -22,20 +20,7 @@
     </div>
     <modal-create></modal-create>
     <modal-read></modal-read>
-    <div id="modal-update" class="modal fade modal-update" style="display: none;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="modal-title">Modal update title</div>
-          </div>
-          <div class="modal-body">Modal update body</div>
-          <div class="modal-footer"></div>
-        </div>
-      </div>
-    </div>
+    <modal-update></modal-update>
     <modal-delete></modal-delete>
   </div>
 </template>
@@ -48,6 +33,7 @@ import FooterComponent from '@/components/layout/FooterComponent.vue'
 import ModalDelete from '@/components/modals/ModalDelete.vue'
 import ModalRead from '@/components/modals/ModalRead.vue'
 import ModalCreate from '@/components/modals/ModalCreate.vue'
+import ModalUpdate from '@/components/modals/ModalUpdate.vue'
 
 export default {
   components: {
@@ -56,7 +42,8 @@ export default {
     FooterComponent,
     ModalDelete,
     ModalRead,
-    ModalCreate
+    ModalCreate,
+    ModalUpdate
   }
 }
 </script>

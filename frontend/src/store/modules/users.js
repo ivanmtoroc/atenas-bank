@@ -6,14 +6,22 @@ const http = axios.create({
 
 const state = {
   users: [],
-  currentUser: {},
+  currentUser: {
+    username: '',
+    identification: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    address: '',
+    position: ''
+  },
   newUser: {
     username: '',
     identification: '',
     first_name: '',
     last_name: '',
     email: '',
-    is_active: true,
     phone: '',
     address: '',
     position: 'OP',
@@ -26,11 +34,11 @@ const state = {
     { label: 'Identification', field: 'id' },
     { label: 'Email', field: 'email' },
     { label: 'Position', field: 'position' },
-    { label: 'Status', field: 'status', type: 'boolean', thClass: 'text-center' },
+    { label: 'Status', field: 'status', type: 'boolean' },
     { label: 'Actions', field: 'actions' }
   ],
   errors: {},
-  showErrors: false
+  existsErrors: false
 }
 
 const getters = {
@@ -61,6 +69,40 @@ const mutations = {
   },
   setUser (state, user) {
     state.currentUser = user
+  },
+  closeModal (state, modalName) {
+    // eslint-disable-next-line
+    $(modalName).modal('hide')
+  },
+  cleanData (state) {
+    state.errors = {}
+    state.existsErrors = false
+    state.newUser = {
+      username: '',
+      identification: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      address: '',
+      position: 'OP',
+      passwd: '',
+      passwd_confirmation: ''
+    }
+    state.currentUser = {
+      username: '',
+      identification: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      address: '',
+      position: ''
+    }
+  },
+  setErrors (state, errors) {
+    state.errors = errors.response.data
+    state.existsErrors = true
   }
 }
 
@@ -77,10 +119,27 @@ const actions = {
     await http.delete(`users/${identification}/`)
     await dispatch('getUsers')
   },
-  async addUser ({ dispatch, state }) {
+  async addUser ({ dispatch, commit, state }) {
     await http.post('users/', state.newUser)
-      .catch(error => { state.errors = error.response.data })
-    await dispatch('getUsers')
+      .catch(errors => {
+        commit('setErrors', errors)
+      })
+    if (!state.existsErrors) {
+      commit('closeModal', '#modal-create')
+      await dispatch('getUsers')
+      commit('cleanData')
+    }
+  },
+  async updateUser ({ dispatch, commit, state }) {
+    await http.put(`users/${state.currentUser.identification}/`, state.currentUser)
+      .catch(errors => {
+        commit('setErrors', errors)
+      })
+    if (!state.existsErrors) {
+      commit('closeModal', '#modal-update')
+      await dispatch('getUsers')
+      commit('cleanData')
+    }
   }
 }
 
