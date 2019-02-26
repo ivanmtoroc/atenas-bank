@@ -5,7 +5,7 @@
         <div class="box-body">
           <div class="row">
             <div class="col-sm-12">
-              <a href="#modal-create" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-create">Create user</a>
+              <a href="#modal-create" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-create">Create new user</a>
               <table id="table" class="table table-bordered table-striped dataTable" role="grid">
                 <vue-good-table
                 :columns="columns"
@@ -27,7 +27,7 @@
                         <i class="fa fa-user-plus"></i>
                       </span>
                     </a>
-                    <a href="#modal-update" class="btn.btn-app btn-primary btn-sm btns" data-toggle="modal" data-target="#modal-update">
+                    <a @click="getUser(props.row.id)" href="#modal-update" class="btn.btn-app btn-primary btn-sm btns" data-toggle="modal" data-target="#modal-update">
                       <i class="fa fa-edit"></i>
                     </a>
                     <a @click="getUser(props.row.id)" href="#modal-read" class="btn.btn-app btn-info btn-sm btns" data-toggle="modal" data-target="#modal-read">
