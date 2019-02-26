@@ -16,7 +16,7 @@ const state = {
     is_active: true,
     phone: '',
     address: '',
-    position: '',
+    position: 'OP',
     passwd: '',
     passwd_confirmation: ''
   },
@@ -28,7 +28,9 @@ const state = {
     { label: 'Position', field: 'position' },
     { label: 'Status', field: 'status', type: 'boolean', thClass: 'text-center' },
     { label: 'Actions', field: 'actions' }
-  ]
+  ],
+  errors: {},
+  showErrors: false
 }
 
 const getters = {
@@ -48,7 +50,9 @@ const getters = {
     })
     return rows
   },
-  currentUser: state => state.currentUser
+  currentUser: state => state.currentUser,
+  newUser: state => state.newUser,
+  errors: state => state.errors
 }
 
 const mutations = {
@@ -71,6 +75,11 @@ const actions = {
   },
   async deleteUser ({ dispatch, commit }, identification) {
     await http.delete(`users/${identification}/`)
+    await dispatch('getUsers')
+  },
+  async addUser ({ dispatch, state }) {
+    await http.post('users/', state.newUser)
+      .catch(error => { state.errors = error.response.data })
     await dispatch('getUsers')
   }
 }
