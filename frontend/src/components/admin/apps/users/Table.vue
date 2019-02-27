@@ -18,7 +18,7 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-sm-12">
-                  <a href="#create" class="btn bg-olive" data-toggle="modal" data-target="#create">Create new user</a>
+                  <a @click="cleanData()" href="#create" class="btn bg-olive" data-toggle="modal" data-target="#create">Create new user</a>
                   <table id="table" class="table table-bordered table-striped dataTable" role="grid">
                     <vue-good-table :columns="columns" :rows="rows" :line-numbers="true" :search-options="{ enabled: true }" :pagination-options="{ enabled: true }">
                       <template slot="table-row" slot-scope="props">
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { VueGoodTable } from 'vue-good-table'
 import Create from './modals/Create'
 import Delete from './modals/Delete'
@@ -80,7 +80,8 @@ export default {
     ...mapGetters('users', ['columns', 'rows'])
   },
   methods: {
-    ...mapActions('users', ['getUsers', 'getUser'])
+    ...mapActions('users', ['getUsers', 'getUser']),
+    ...mapMutations('users', ['cleanData'])
   },
   mounted () {
     this.getUsers()
