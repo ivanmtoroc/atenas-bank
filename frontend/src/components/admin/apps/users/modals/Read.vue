@@ -7,31 +7,31 @@
             <span aria-hidden="true">×</span>
           </button>
           <div class="modal-title">
-            <h3>Information</h3>
+            <h3>User information</h3>
           </div>
         </div>
         <div class="modal-body">
           <ul>
             <li>
-              <p><strong>Username:</strong> {{ currentUser.username }}.</p>
+              <p><strong>Username:</strong> {{ user.username }}.</p>
             </li>
             <li>
-              <p><strong>Identification:</strong> {{ currentUser.identification }}.</p>
+              <p><strong>Identification:</strong> {{ user.identification }}.</p>
             </li>
             <li>
-              <p><strong>Full name:</strong> {{ currentUser.first_name }} {{ currentUser.last_name }}.</p>
+              <p><strong>Full name:</strong> {{ user.first_name }} {{ user.last_name }}.</p>
             </li>
             <li>
-              <p><strong>Status:</strong> {{ currentUser.is_active }}.</p>
+              <p><strong>Status:</strong> {{ user.is_active ? 'Active' : 'Inactive' }}.</p>
             </li>
             <li>
-              <p><strong>Phone:</strong> {{ currentUser.phone }}.</p>
+              <p><strong>Phone:</strong> {{ user.phone }}.</p>
             </li>
             <li>
-              <p><strong>Address:</strong> {{ currentUser.address }}.</p>
+              <p><strong>Address:</strong> {{ user.address }}.</p>
             </li>
             <li>
-              <p><strong>Position:</strong> {{ currentUser.position }}.</p>
+              <p><strong>Position:</strong> {{ user.position === 'OP' ? 'Operator' : 'Manager' }}.</p>
             </li>
           </ul>
           <div class="pull-right">
@@ -49,7 +49,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('users', ['currentUser'])
+    ...mapGetters('users', ['user'])
   }
 }
 </script>

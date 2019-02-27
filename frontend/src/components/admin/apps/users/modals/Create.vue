@@ -14,61 +14,60 @@
           <form @submit.prevent="addUser()">
             <div class="row">
               <div class="col-md-6 form-group" :class="[ errors.identification ? 'has-error' : '']">
-                <label for="identification">Identification</label>
-                <input id="identification" placeholder="Identification" v-model="newUser.identification" type="text" class="form-control" required="required">
+                <label for="identification-create">Identification</label>
+                <input id="identification-create" placeholder="Identification" v-model="user.identification" type="text" class="form-control" required="required">
                 <p v-for="error in errors.identification" class="text-red">{{ error }}</p>
               </div>
               <div class="col-md-6 form-group" :class="[ errors.username ? 'has-error' : '']">
-                <label for="username">Username</label>
-                <input id="username" placeholder="Username" v-model="newUser.username" type="text" class="form-control" required="required">
+                <label for="username-create">Username</label>
+                <input id="username-create" placeholder="Username" v-model="user.username" type="text" class="form-control" required="required">
                 <p v-for="error in errors.username" class="text-red">{{ error }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="first_name">First name</label>
-                <input id="first_name" placeholder="First name" v-model="newUser.first_name" type="text" class="form-control" required="required">
+                <label for="first_name-create">First name</label>
+                <input id="first_name-create" placeholder="First name" v-model="user.first_name" type="text" class="form-control" required="required">
               </div>
               <div class="col-md-6 form-group">
-                <label for="last_name">Last name</label>
-                <input id="last_name" placeholder="Last name" v-model="newUser.last_name" type="text" class="form-control" required="required">
+                <label for="last_name-create">Last name</label>
+                <input id="last_name-create" placeholder="Last name" v-model="user.last_name" type="text" class="form-control" required="required">
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group" :class="[ errors.email ? 'has-error' : '']">
-                <label for="email">Email</label>
-                <input id="email" placeholder="Email" v-model="newUser.email" type="text" class="form-control" required="required">
+                <label for="email-create">Email</label>
+                <input id="email-create" placeholder="Email" v-model="user.email" type="text" class="form-control" required="required">
                 <p v-for="error in errors.email" class="text-red">{{ error }}</p>
               </div>
               <div class="col-md-6 form-group" :class="[ errors.position ? 'has-error' : '']">
-                <label for="position">Position</label>
-                <select id="position" v-model="newUser.position" class="form-control" required="required">
-                  <option>OP</option>
-                  <option>MG</option>
+                <label for="position-create">Position</label>
+                <select id="position-create" v-model="user.position" class="form-control" required="required">
+                  <option value="OP">Operator</option>
+                  <option value="MG">Manager</option>
                 </select>
                 <p v-for="error in errors.position" class="text-red">{{ error }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="address">Address</label>
-                <input id="address" placeholder="Address" v-model="newUser.address" type="text" class="form-control" required="required">
+                <label for="address-create">Address</label>
+                <input id="address-create" placeholder="Address" v-model="user.address" type="text" class="form-control" required="required">
               </div>
               <div class="col-md-6 form-group">
-                <label for="phone">Phone</label>
-                <input id="phone" placeholder="Phone" v-model="newUser.phone" type="text" class="form-control" required="required">
+                <label for="phone-create">Phone</label>
+                <input id="phone-create" placeholder="Phone" v-model="user.phone" type="text" class="form-control" required="required">
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group" :class="[ errors.passwd ? 'has-error' : '']">
-                <label for="passwd">Password</label>
-                <input id="passwd" placeholder="Password" v-model="newUser.passwd" type="password" class="form-control" required="required">
+                <label for="passwd-create">Password</label>
+                <input id="passwd-create" placeholder="Password" v-model="user.passwd" type="password" class="form-control" required="required">
                 <p v-for="error in errors.passwd" class="text-red">{{ error }}</p>
               </div>
               <div class="col-md-6 form-group" :class="[ errors.passwd ? 'has-error' : '']">
-                <label for="passwd_confirmation">Password confirmation</label>
-                <input id="passwd_confirmation" placeholder="Password confirmation" v-model="newUser.passwd_confirmation" type="password" class="form-control" required="required">
-                <p v-for="error in errors.passwd" class="text-red">{{ error }}</p>
+                <label for="passwd_confirmation-create">Password confirmation</label>
+                <input id="passwd_confirmation-create" placeholder="Password confirmation" v-model="user.passwd_confirmation" type="password" class="form-control" required="required">
               </div>
             </div>
             <div class="pull-right">
@@ -88,7 +87,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('users', ['newUser', 'errors'])
+    ...mapGetters('users', ['user', 'errors'])
   },
   methods: {
     ...mapActions('users', ['addUser'])

@@ -7,22 +7,22 @@
             <span aria-hidden="true">×</span>
           </button>
           <div class="modal-title">
-            <h3>{{ currentUser.is_active ? 'Deactivate' : 'Active' }} user</h3>
+            <h3>{{ user.is_active ? 'Deactivate' : 'Active' }} user</h3>
           </div>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
               <p>
-                Are you sure to <strong>{{ currentUser.is_active ? 'deactivate' : 'active' }}</strong>
-                the user <strong>{{ currentUser.first_name }} {{ currentUser.last_name }}</strong>?
+                Are you sure to <strong>{{ user.is_active ? 'deactivate' : 'active' }}</strong>
+                the user <strong>{{ user.first_name }} {{ user.last_name }}</strong>?
               </p>
             </div>
           </div>
           <div class="pull-right">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-            <button data-dismiss="modal" @click="deleteUser(currentUser.identification)" type="button" :class="[ currentUser.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
-              {{ currentUser.is_active ? 'Deactivate' : 'Active' }}
+            <button data-dismiss="modal" @click="deleteUser(user.identification)" type="button" :class="[ user.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
+              {{ user.is_active ? 'Deactivate' : 'Active' }}
             </button>
           </div>
         </div>
@@ -37,7 +37,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('users', ['currentUser'])
+    ...mapGetters('users', ['user'])
   },
   methods: {
     ...mapActions('users', ['deleteUser'])

@@ -14,48 +14,48 @@
           <form @submit.prevent="updateUser()">
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="identification2">Identification</label>
-                <input id="identification2" placeholder="Identification" v-model="currentUser.identification" type="text" class="form-control" required="required" readonly>
+                <label for="identification-update">Identification</label>
+                <input id="identification-update" placeholder="Identification" v-model="user.identification" type="text" class="form-control" required="required" readonly>
               </div>
               <div class="col-md-6 form-group" :class="[ errors.username ? 'has-error' : '']">
-                <label for="username2">Username</label>
-                <input id="username2" placeholder="Username" v-model="currentUser.username" type="text" class="form-control" required="required">
+                <label for="username-update">Username</label>
+                <input id="username-update" placeholder="Username" v-model="user.username" type="text" class="form-control" required="required">
                 <p v-for="error in errors.username" class="text-red">{{ error }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="first_name2">First name</label>
-                <input id="first_name2" placeholder="First name" v-model="currentUser.first_name" type="text" class="form-control" required="required">
+                <label for="first_name-update">First name</label>
+                <input id="first_name-update" placeholder="First name" v-model="user.first_name" type="text" class="form-control" required="required">
               </div>
               <div class="col-md-6 form-group">
-                <label for="last_name2">Last name</label>
-                <input id="last_name2" placeholder="Last name" v-model="currentUser.last_name" type="text" class="form-control" required="required">
+                <label for="last_name-update">Last name</label>
+                <input id="last_name-update" placeholder="Last name" v-model="user.last_name" type="text" class="form-control" required="required">
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group" :class="[ errors.email ? 'has-error' : '']">
-                <label for="email2">Email</label>
-                <input id="email2" placeholder="Email" v-model="currentUser.email" type="text" class="form-control" required="required">
+                <label for="email-update">Email</label>
+                <input id="email-update" placeholder="Email" v-model="user.email" type="text" class="form-control" required="required">
                 <p v-for="error in errors.email" class="text-red">{{ error }}</p>
               </div>
               <div class="col-md-6 form-group" :class="[ errors.position ? 'has-error' : '']">
-                <label>Position</label>
-                <select v-model="currentUser.position" class="form-control" required="required">
-                  <option>OP</option>
-                  <option>MG</option>
+                <label for="position-update">Position</label>
+                <select id="position-update" v-model="user.position" class="form-control" required="required">
+                  <option value="OP">Operator</option>
+                  <option value="MG">Manager</option>
                 </select>
                 <p v-for="error in errors.position" class="text-red">{{ error }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="address2">Address</label>
-                <input id="address2" placeholder="Address" v-model="currentUser.address" type="text" class="form-control" required="required">
+                <label for="address-update">Address</label>
+                <input id="address-update" placeholder="Address" v-model="user.address" type="text" class="form-control" required="required">
               </div>
               <div class="col-md-6 form-group">
-                <label for="phone2">Phone</label>
-                <input id="phone2" placeholder="Phone" v-model="currentUser.phone" type="text" class="form-control" required="required">
+                <label for="phone-update">Phone</label>
+                <input id="phone-update" placeholder="Phone" v-model="user.phone" type="text" class="form-control" required="required">
               </div>
             </div>
             <div class="pull-right">
@@ -75,7 +75,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('users', ['currentUser', 'errors'])
+    ...mapGetters('users', ['user', 'errors'])
   },
   methods: {
     ...mapActions('users', ['updateUser'])
