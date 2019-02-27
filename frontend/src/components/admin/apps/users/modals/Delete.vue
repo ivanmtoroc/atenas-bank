@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-delete" class="modal fade modal-delete" style="display: none;">
+  <div id="delete" class="modal fade" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-read" class="modal fade modal-read" style="display: none;">
+  <div id="read" class="modal fade" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

@@ -1,12 +1,14 @@
 <template>
-  <div id="modal-update" class="modal fade modal-update" style="display: none;">
+  <div id="update" class="modal fade update" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">×</span>
           </button>
-          <div class="modal-title">Update user</div>
+          <div class="modal-title">
+            <h3>Update user</h3>
+          </div>
         </div>
         <div class="modal-body">
           <form @submit.prevent="updateUser()">
