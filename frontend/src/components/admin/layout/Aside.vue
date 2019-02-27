@@ -3,8 +3,8 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <li class="active">
-          <router-link :to="{ name: 'dashboard' }">
-            <i class="fa fa-bank"></i><span>Dashboard</span>
+          <router-link :to="{ name: 'admin' }">
+            <i class="fa fa-bank"></i><span>Home</span>
           </router-link>
         </li>
         <li>
