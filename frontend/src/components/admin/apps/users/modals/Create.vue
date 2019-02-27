@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-create" class="modal fade modal-create" style="display: none;">
+  <div id="create" class="modal fade" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
