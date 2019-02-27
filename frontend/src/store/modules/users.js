@@ -8,27 +8,16 @@ const state = {
   users: [],
   user: {},
   errors: {},
-  existsErrors: false,
-  columns: [
-    { label: 'Full name', field: 'name' },
-    { label: 'Username', field: 'username' },
-    { label: 'Identification', field: 'id' },
-    { label: 'Email', field: 'email' },
-    { label: 'Position', field: 'position' },
-    { label: 'Status', field: 'status' },
-    { label: 'Actions', field: 'actions' }
-  ]
+  existsErrors: false
 }
 
 const getters = {
-  users: state => state.users,
   user: state => state.user,
   errors: state => state.errors,
-  columns: state => state.columns,
-  rows: state => {
-    var rows = []
+  users: state => {
+    var users = []
     state.users.forEach(user => {
-      rows.push({
+      users.push({
         id: user['identification'],
         name: `${user['first_name']} ${user['last_name']}`,
         username: user['username'],
@@ -37,11 +26,15 @@ const getters = {
         status: user['is_active']
       })
     })
-    return rows
+    return users
   }
 }
 
 const mutations = {
+  dataTable (state) {
+    // eslint-disable-next-line
+    $(function () { $('#table').DataTable() })
+  },
   closeModal (state, modalName) {
     // eslint-disable-next-line
     $(modalName).modal('hide')
@@ -74,7 +67,7 @@ const mutations = {
 }
 
 const actions = {
-  async getUsers () {
+  async getUsers ({ state }) {
     const response = await http.get('users/')
     state.users = response.data
   },

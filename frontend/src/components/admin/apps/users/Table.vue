@@ -1,7 +1,14 @@
 <template>
   <div>
     <section class="content-header">
-      <div class="list-inline"><h1>Users</h1></div>
+      <div class="list-inline">
+        <h1>
+          Users
+          <a @click="cleanData()" href="#create" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create">
+            + New user
+          </a>
+        </h1>
+      </div>
       <ol class="breadcrumb">
         <li>
           <router-link :to="{ name: 'admin' }">
@@ -18,31 +25,43 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-sm-12">
-                  <a @click="cleanData()" href="#create" class="btn bg-olive" data-toggle="modal" data-target="#create">Create new user</a>
                   <table id="table" class="table table-bordered table-striped dataTable" role="grid">
-                    <vue-good-table :columns="columns" :rows="rows" :line-numbers="true" :search-options="{ enabled: true }" :pagination-options="{ enabled: true }">
-                      <template slot="table-row" slot-scope="props">
-                        <span v-if="props.column.field == 'status'">
-                          <p v-if="props.row.status" class="badge bg-green p-bg">Active</p>
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Full name</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Username</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Identification</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Email</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Position</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Status</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="user in users" role="row" class="odd">
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.position }}</td>
+                        <td class="text-center">
+                          <p v-if="user.status" class="badge bg-green p-bg">Active</p>
                           <p v-else class="badge bg-red p-bg">Inactive</p>
-                        </span>
-                        <span v-else-if="props.column.field == 'actions'">
-                          <a @click="getUser(props.row.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[props.row.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
-                            <i v-if="props.row.status" class="fa fa-user-times"></i>
+                        </td>
+                        <td class="text-center">
+                          <a @click="getUser(user.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[user.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
+                            <i v-if="user.status" class="fa fa-user-times"></i>
                             <i v-else class="fa fa-user-plus"></i>
                           </a>
-                          <a @click="getUser(props.row.id)" href="#update" class="btn.btn-app btn-primary btn-sm action-btn" data-toggle="modal" data-target="#update">
+                          <a @click="getUser(user.id)" href="#update" class="btn.btn-app btn-primary btn-sm action-btn" data-toggle="modal" data-target="#update">
                             <i class="fa fa-edit"></i>
                           </a>
-                          <a @click="getUser(props.row.id)" href="#read" class="btn.btn-app btn-info btn-sm action-btn" data-toggle="modal" data-target="#read">
+                          <a @click="getUser(user.id)" href="#read" class="btn.btn-app btn-info btn-sm action-btn" data-toggle="modal" data-target="#read">
                             <i class="fa fa-info-circle"></i>
                           </a>
-                        </span>
-                        <span v-else>
-                          {{ props.formattedRow[props.column.field] }}
-                        </span>
-                      </template>
-                    </vue-good-table>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -60,31 +79,30 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { VueGoodTable } from 'vue-good-table'
 import Create from './modals/Create'
 import Delete from './modals/Delete'
 import Read from './modals/Read'
 import Update from './modals/Update'
 
-import 'vue-good-table/dist/vue-good-table.css'
-
 export default {
   components: {
-    VueGoodTable,
     Create,
     Delete,
     Read,
     Update
   },
   computed: {
-    ...mapGetters('users', ['columns', 'rows'])
+    ...mapGetters('users', ['users'])
   },
   methods: {
     ...mapActions('users', ['getUsers', 'getUser']),
-    ...mapMutations('users', ['cleanData'])
+    ...mapMutations('users', ['cleanData', 'dataTable'])
+  },
+  beforeMount () {
+    this.getUsers()
   },
   mounted () {
-    this.getUsers()
+    this.dataTable()
   }
 }
 </script>
