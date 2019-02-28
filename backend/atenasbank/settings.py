@@ -23,6 +23,9 @@ INSTALLED_APPS = [
 
     'apps.users',
     'apps.offices',
+    'apps.ads',
+    'apps.clients',
+    'apps.tickets'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -61,10 +64,10 @@ WSGI_APPLICATION = 'atenasbank.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'atenasbank',
-        'USER': 'ivanmtoroc',
-        'PASSWORD': 'ivanmtoroc',
-        'HOST': 'localhost',
+        'NAME': '1533597',
+        'USER': '1533597',
+        'PASSWORD': '1533597',
+        'HOST': 'pgsql2',
         'PORT': 5432,
     }
 }
@@ -87,3 +90,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
