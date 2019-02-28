@@ -5,7 +5,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 # Viewsets
-from apps.tickets.viewsets import TicketViewSet
+from backend.apps.tickets.viewsets import TicketViewSet
 
 app_name = 'tickets'
 

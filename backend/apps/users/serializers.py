@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from rest_framework import serializers
 
 # Models
-from apps.users.models import User
+from backend.apps.users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     passwd = serializers.CharField(source = 'password')

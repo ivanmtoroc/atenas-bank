@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 # Serializers
-from apps.offices.serializers import OfficeSerializer
+from backend.apps.offices.serializers import OfficeSerializer
 
 # Models
-from apps.offices.models import Office
+from backend.apps.offices.models import Office
 
 class OfficeViewSet(viewsets.ModelViewSet):
     queryset = Office.objects.all()

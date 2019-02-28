@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 # Models
-from apps.tickets.models import Ticket
+from backend.apps.tickets.models import Ticket
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:

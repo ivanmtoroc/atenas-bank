@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 # Serializers
-from apps.users.serializers import UserSerializer
+from backend.apps.users.serializers import UserSerializer
 
 # Models
-from apps.users.models import User
+from backend.apps.users.models import User
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

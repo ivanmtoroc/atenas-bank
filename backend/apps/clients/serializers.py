@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 # Models
-from apps.clients.models import Client
+from backend.apps.clients.models import Client
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
