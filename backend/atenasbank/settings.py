@@ -65,7 +65,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Athenas-Bank',
-        'USER': 'javier',
+        'USER': 'Javier',
         'PASSWORD': 'anarchy20',
         'HOST': 'localhost',
         'PORT': 5432,
