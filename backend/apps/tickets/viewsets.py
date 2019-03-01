@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 # Serializers
-from apps.tickets.serializers import TicketSerializer
+from backend.apps.tickets.serializers import TicketSerializer
 
 # Models
-from apps.tickets.models import Ticket
+from backend.apps.tickets.models import Ticket
 
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()

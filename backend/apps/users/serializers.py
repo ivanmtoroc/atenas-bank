@@ -7,7 +7,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
 # Models
-from apps.users.models import User
+from backend.apps.users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     passwd = serializers.CharField(source = 'password')

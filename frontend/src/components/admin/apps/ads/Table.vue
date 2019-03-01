@@ -3,9 +3,9 @@
     <section class="content-header">
       <div class="list-inline">
         <h1>
-          Users
+          Ads
           <a @click="cleanData()" href="#create" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create">
-            + New user
+            + New ads
           </a>
         </h1>
       </div>
@@ -15,7 +15,7 @@
             <span>Home</span>
           </router-link>
         </li>
-        <li class="active">Users</li>
+        <li class="active">Ads</li>
       </ol>
     </section>
     <section class="content">
@@ -28,35 +28,31 @@
                   <table id="table" class="table table-bordered table-striped dataTable" role="grid">
                     <thead>
                       <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Full name</th>
-                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Username</th>
-                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Identification</th>
-                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Email</th>
-                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Position</th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">ID</th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Description</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Image</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Status</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="user in users" role="row" class="odd">
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.position }}</td>
+                      <tr v-for="ad in ads" role="row" class="odd">
+                        <td>{{ ad.id }}</td>
+                        <td>{{ ad.description }}</td>
+                        <td>{{ ad.image }}</td>
                         <td class="text-center">
-                          <p v-if="user.status" class="badge bg-green p-bg">Active</p>
+                          <p v-if="ad.status" class="badge bg-green p-bg">Active</p>
                           <p v-else class="badge bg-red p-bg">Inactive</p>
                         </td>
                         <td class="text-center">
-                          <a @click="getUser(user.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[user.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
-                            <i v-if="user.status" class="fa fa-user-times"></i>
+                          <a @click="getAd(ad.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[ad.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
+                            <i v-if="ad.status" class="fa fa-user-times"></i>
                             <i v-else class="fa fa-user-plus"></i>
                           </a>
-                          <a @click="getUser(user.id)" href="#update" class="btn.btn-app btn-primary btn-sm action-btn" data-toggle="modal" data-target="#update">
+                          <a @click="getAd(ad.id)" href="#update" class="btn.btn-app btn-primary btn-sm action-btn" data-toggle="modal" data-target="#update">
                             <i class="fa fa-edit"></i>
                           </a>
-                          <a @click="getUser(user.id)" href="#read" class="btn.btn-app btn-info btn-sm action-btn" data-toggle="modal" data-target="#read">
+                          <a @click="getAd(ad.id)" href="#read" class="btn.btn-app btn-info btn-sm action-btn" data-toggle="modal" data-target="#read">
                             <i class="fa fa-info-circle"></i>
                           </a>
                         </td>
@@ -92,16 +88,16 @@ export default {
     Update
   },
   computed: {
-    ...mapGetters('users', ['users'])
+    ...mapGetters('ads', ['ads'])
   },
   methods: {
-    ...mapActions('users', ['getUsers', 'getUser']),
-    ...mapMutations('users', ['cleanData', 'dataTable'])
+    ...mapActions('ads', ['getAds', 'getAd']),
+    ...mapMutations('ads', ['cleanData', 'dataTable'])
   },
   beforeMount () {
-    this.getUsers()
+    this.getAds()
   },
-  beforeUpdate () {
+  mounted () {
     this.dataTable()
   }
 }

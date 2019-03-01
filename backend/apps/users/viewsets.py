@@ -1,4 +1,4 @@
-# Django Rest Framework
+# Django Rest Frameworksers
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status, viewsets
@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from apps.users.serializers import UserSerializer, UserLoginSerializer
 
 # Models
-from apps.users.models import User
+from backend.apps.users.models import User
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

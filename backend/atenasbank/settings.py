@@ -22,11 +22,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
 
-    'apps.users',
-    'apps.offices',
-    'apps.ads',
-    'apps.clients',
-    'apps.tickets'
+    'backend.apps.users',
+    'backend.apps.offices',
+    'backend.apps.ads',
+    'backend.apps.clients',
+    'backend.apps.tickets'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True

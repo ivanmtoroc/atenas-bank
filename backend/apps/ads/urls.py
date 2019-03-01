@@ -5,7 +5,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 # Viewsets
-from apps.ads.viewsets import AdViewSet
+from backend.apps.ads.viewsets import AdViewSet
 
 app_name = 'ads'
 
