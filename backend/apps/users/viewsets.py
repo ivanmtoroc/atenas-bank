@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from apps.users.serializers import UserSerializer, UserLoginSerializer
 
 # Models
-from backend.apps.users.models import User
+from apps.users.models import User
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
