@@ -13,10 +13,9 @@
         <div class="modal-body">
           <form @submit.prevent="addAd()">
             <div class="row">
-              <div class="col-md-6 form-group" :class="[ errors.identification ? 'has-error' : '']">
-                <label for="identification-create">ID</label>
-                <input id="identification-create" placeholder="Identification" v-model="ad.id" type="text" class="form-control" required="required">
-                <p v-for="error in errors.identification" class="text-red">{{ error }}</p>
+              <div class="col-md-6 form-group">
+                <label for="name-create">Name</label>
+                <input id="name-create" placeholder="Name" v-model="ad.name" type="text" class="form-control" required="required">
               </div>
               <div class="col-md-6 form-group">
                 <label for="description-create">Description</label>
@@ -26,7 +25,7 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="image-create">Image</label>
-                <input id="image-create" placeholder="Image" v-model="ad.image" type="text" class="form-control" required="required">
+                <input id="image-create" placeholder="Image" type="file"  @change="processFile($event)" class="form-control" >
               </div>
             </div>
             <div class="pull-right">
@@ -49,7 +48,10 @@ export default {
     ...mapGetters('ads', ['ad', 'errors'])
   },
   methods: {
-    ...mapActions('ads', ['addAd'])
+    ...mapActions('ads', ['addAd']),
+    processFile(event) {
+    this.someData = event.target.files[0]
+  }
   }
 }
 </script>

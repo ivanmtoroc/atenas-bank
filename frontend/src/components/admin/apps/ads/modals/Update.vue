@@ -18,11 +18,15 @@
                 <input id="identification-update" placeholder="ID" v-model="ad.id" type="text" class="form-control" required="required" readonly>
               </div>
               <div class="col-md-6 form-group">
-                <label for="description-update">Description</label>
-                <input id="description-update" placeholder="Description" v-model="ad.description" type="text" class="form-control" required="required">
+                <label for="name-update">Name</label>
+                <input id="name-update" placeholder="Name" v-model="ad.id" type="text" class="form-control" required="required">
               </div>
             </div>
             <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="description-update">Description</label>
+                <input id="description-update" placeholder="Description" v-model="ad.description" type="text" class="form-control" required="required">
+              </div>
               <div class="col-md-6 form-group">
                 <label for="image-update">Image</label>
                 <input id="image-update" placeholder="Image" v-model="ad.image" type="text" class="form-control" required="required">

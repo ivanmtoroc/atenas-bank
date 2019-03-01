@@ -15,7 +15,7 @@
             <div class="col-sm-12">
               <p>
                 Are you sure to <strong>{{ ad.is_active ? 'deactivate' : 'active' }}</strong>
-                the ad <strong>{{ ad.id }} </strong>?
+                the ad <strong>{{ ad.name }} </strong>?
               </p>
             </div>
           </div>
