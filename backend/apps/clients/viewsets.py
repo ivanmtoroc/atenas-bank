@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 # Serializers
-from backend.apps.clients.serializers import ClientSerializer
+from apps.clients.serializers import ClientSerializer
 
 # Models
-from backend.apps.clients.models import Client
+from apps.clients.models import Client
+
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()

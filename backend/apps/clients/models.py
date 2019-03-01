@@ -1,6 +1,7 @@
 # Django
 from django.db import models
 
+
 class Client(models.Model):
     identification = models.CharField(max_length = 10, unique = True, primary_key = True)
     first_name = models.CharField(max_length = 30)
@@ -15,4 +16,3 @@ class Client(models.Model):
         return self.first_name + self.last_name
 
     REQUIRED_FIELDS = ['identification', 'first_name', 'last_name', 'email', 'phone','address']
-

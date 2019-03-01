@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 # Serializers
-from backend.apps.ads.serializers import AdSerializer
+from apps.ads.serializers import AdSerializer
 
 # Models
-from backend.apps.ads.models import Ad
+from apps.ads.models import Ad
+
 
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
