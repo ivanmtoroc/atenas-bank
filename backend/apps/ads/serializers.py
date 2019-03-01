@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 # Models
-from apps.ads.models import Ad
+from backend.apps.ads.models import Ad
 
 class AdSerializer(serializers.ModelSerializer):
     class Meta:
