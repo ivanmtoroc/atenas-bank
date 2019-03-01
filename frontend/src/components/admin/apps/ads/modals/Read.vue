@@ -16,6 +16,10 @@
               <p><strong>ID:</strong> {{ ad.id }}.</p>
             </li>
             <li>
+            <li>
+              <p><strong>Name:</strong> {{ ad.name }}.</p>
+            </li>
+            <li>
               <p><strong>Description:</strong> {{ ad.description }}.</p>
             </li>
             <li>
