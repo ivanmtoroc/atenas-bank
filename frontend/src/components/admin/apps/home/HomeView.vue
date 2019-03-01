@@ -5,10 +5,10 @@
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon"><img src="'./images/employees.png'" ></span>
+            <span class="info-box-icon"><img src="https://i.imgur.com/ccwBmTp.png" ></span>
 
             <div class="info-box-content">
-              <span class="info-box-number">EMPLOYEES</span>
+              <span class="info-box-number">Employees</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -17,11 +17,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon"><img src="public/static/images/employees.png" ></span>
+            <span class="info-box-icon"><img src="https://i.imgur.com/VvO9nVO.png" ></span>
 
             <div class="info-box-content">
 
-              <span class="info-box-number">BRANCH OFFICES</span>
+              <span class="info-box-number">Branch Offices</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -34,10 +34,10 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon"><img src="public/static/images/employees.png" ></span>
+            <span class="info-box-icon"><img src="https://i.imgur.com/rfqWoEf.png" ></span>
 
             <div class="info-box-content">
-              <span class="info-box-number">REPORTS</span>
+              <span class="info-box-number">Reports</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -46,10 +46,10 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon"><img src="public/static/images/employees.png" ></span>
+            <span class="info-box-icon"><img src="https://i.imgur.com/B1IaFOY.png" ></span>
 
             <div class="info-box-content">
-              <span class="info-box-number">CUSTOMERS</span>
+              <span class="info-box-number">Customers</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -59,11 +59,11 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon"><img src="public/static/images/employees.png" ></span>
+            <span class="info-box-icon"><img src="https://i.imgur.com/tXDCY5N.png" ></span>
 
             <div class="info-box-content">
 
-              <span class="info-box-number">ADS AND NEWS</span>
+              <span class="info-box-number">Ads And News</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -75,14 +75,3 @@
 
     </section>
 </template>
-<script>
-
-export default {
-  data () {
-    return {
-      publicPath: process.env.BASE_URL
-    }
-  }
-}
-
-</script>
