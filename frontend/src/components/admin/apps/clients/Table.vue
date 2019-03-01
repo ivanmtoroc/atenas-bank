@@ -106,7 +106,7 @@ export default {
   beforeMount () {
     this.getClients()
   },
-  mounted () {
+  beforeUpdate () {
     this.dataTable()
   }
 }

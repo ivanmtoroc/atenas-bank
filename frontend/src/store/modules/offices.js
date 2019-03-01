@@ -83,7 +83,7 @@ const actions = {
   },
   async updateOffice ({ dispatch, commit, state }) {
     commit('cleanErrors')
-    await http.put(`offices/${state.office.identification}/`, state.office)
+    await http.put(`offices/${state.office.code}/`, state.office)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getOffices')

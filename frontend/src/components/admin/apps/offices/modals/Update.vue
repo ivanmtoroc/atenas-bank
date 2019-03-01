@@ -7,7 +7,7 @@
             <span aria-hidden="true">×</span>
           </button>
           <div class="modal-title">
-            <h3>Update user</h3>
+            <h3>Update Office</h3>
           </div>
         </div>
         <div class="modal-body">

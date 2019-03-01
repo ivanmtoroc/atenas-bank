@@ -7,7 +7,7 @@
             <span aria-hidden="true">×</span>
           </button>
           <div class="modal-title">
-            <h3>{{ office.is_active ? 'Deactivate' : 'Active' }} user</h3>
+            <h3>{{ office.is_active ? 'Deactivate' : 'Active' }} office</h3>
           </div>
         </div>
         <div class="modal-body">
