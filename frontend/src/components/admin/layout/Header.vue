@@ -13,10 +13,20 @@
             <a>Username</a>
           </li>
           <li>
-            <a><i class="fa fa-sign-out"></i> Logout</a>
+            <a @click="logout()" href=""><i class="fa fa-sign-out"></i> Logout</a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions('authentication', ['logout'])
+  }
+}
+</script>

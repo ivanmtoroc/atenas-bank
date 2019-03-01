@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { TOKEN } from './authentication'
 
 const http = axios.create({
   baseURL: 'http://localhost:8000'
@@ -68,21 +69,25 @@ const mutations = {
 
 const actions = {
   async getUsers ({ state }) {
-    const response = await http.get('users/')
+    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
+    const response = await http.get('users/', { headers })
     state.users = response.data
   },
   async getUser ({ commit, state }, id) {
     commit('cleanData')
-    const response = await http.get(`users/${id}/`)
+    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
+    const response = await http.get(`users/${id}/`, { headers })
     state.user = response.data
   },
   async deleteUser ({ dispatch }, id) {
-    await http.delete(`users/${id}/`)
+    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
+    await http.delete(`users/${id}/`, { headers })
     await dispatch('getUsers')
   },
   async addUser ({ dispatch, commit, state }) {
     commit('cleanErrors')
-    await http.post('users/', state.user)
+    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
+    await http.post('users/', { headers }, state.user)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')
@@ -92,7 +97,8 @@ const actions = {
   },
   async updateUser ({ dispatch, commit, state }) {
     commit('cleanErrors')
-    await http.put(`users/${state.user.identification}/`, state.user)
+    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
+    await http.put(`users/${state.user.identification}/`, { headers }, state.user)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')

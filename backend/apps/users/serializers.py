@@ -1,9 +1,10 @@
 # Django
-from django.contrib.auth import password_validation
+from django.contrib.auth import password_validation, authenticate
 from django.core.exceptions import ValidationError
 
 # Django Rest Framework
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 # Models
 from apps.users.models import User
@@ -43,3 +44,18 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, data):
         user = User.objects.create_user(**data)
         return user
+
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length = 20)
+    passwd = serializers.CharField(min_length = 8, max_length = 64)
+
+    def validate(self, data):
+        user = authenticate(username = data['username'], password = data['passwd'])
+        if not user:
+            raise serializers.ValidationError('Invalid credentials')
+        self.context['user'] = user
+        return data
+
+    def create(self, data):
+        token, created = Token.objects.get_or_create(user = self.context['user'])
+        return self.context['user'], token.key

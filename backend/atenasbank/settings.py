@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 
     'apps.users',
@@ -64,10 +65,10 @@ WSGI_APPLICATION = 'atenasbank.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '1533597',
-        'USER': '1533597',
-        'PASSWORD': '1533597',
-        'HOST': 'pgsql2',
+        'NAME': 'atenasbank',
+        'USER': 'ivanmtoroc',
+        'PASSWORD': 'ivanmtoroc',
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }
@@ -93,3 +94,9 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
