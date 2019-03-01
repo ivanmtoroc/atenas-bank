@@ -97,7 +97,7 @@ export default {
   beforeMount () {
     this.getOffices()
   },
-  mounted () {
+  beforeUpdate () {
     this.dataTable()
   }
 }

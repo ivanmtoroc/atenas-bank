@@ -101,7 +101,7 @@ export default {
   beforeMount () {
     this.getUsers()
   },
-  mounted () {
+  beforeUpdate () {
     this.dataTable()
   }
 }
