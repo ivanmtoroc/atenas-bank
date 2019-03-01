@@ -7,22 +7,22 @@
             <span aria-hidden="true">×</span>
           </button>
           <div class="modal-title">
-            <h3>{{ client.is_active ? 'Deactivate' : 'Active' }} client</h3>
+            <h3>{{ ad.is_active ? 'Deactivate' : 'Active' }} ad</h3>
           </div>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
               <p>
-                Are you sure to <strong>{{ client.is_active ? 'deactivate' : 'active' }}</strong>
-                the client <strong>{{ client.first_name }} {{ client.last_name }}</strong>?
+                Are you sure to <strong>{{ ad.is_active ? 'deactivate' : 'active' }}</strong>
+                the ad <strong>{{ ad.id }} </strong>?
               </p>
             </div>
           </div>
           <div class="pull-right">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-            <button data-dismiss="modal" @click="deleteClient(client.identification)" type="button" :class="[ client.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
-              {{ client.is_active ? 'Deactivate' : 'Active' }}
+            <button data-dismiss="modal" @click="deleteAd(ad.id)" type="button" :class="[ ad.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
+              {{ ad.is_active ? 'Deactivate' : 'Active' }}
             </button>
           </div>
         </div>
@@ -37,10 +37,10 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('clients', ['client'])
+    ...mapGetters('ads', ['ad'])
   },
   methods: {
-    ...mapActions('clients', ['deleteClient'])
+    ...mapActions('ads', ['deleteAd'])
   }
 }
 </script>

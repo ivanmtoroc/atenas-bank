@@ -18,6 +18,11 @@
                 <input id="identification-create" placeholder="Identification" v-model="client.identification" type="text" class="form-control" required="required">
                 <p v-for="error in errors.identification" class="text-red">{{ error }}</p>
               </div>
+              <div class="col-md-6 form-group checkbox">
+                <label for="vip-create">
+                <input id="vip-create" v-model="client.is_vip" type="checkbox"><span class="checkbox-material"><span class="check"></span></span>
+              VIP</label>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group">
@@ -35,34 +40,15 @@
                 <input id="email-create" placeholder="Email" v-model="client.email" type="text" class="form-control" required="required">
                 <p v-for="error in errors.email" class="text-red">{{ error }}</p>
               </div>
-              <div class="col-md-6 form-group" :class="[ errors.position ? 'has-error' : '']">
-                <label for="position-create">Position</label>
-                <select id="position-create" v-model="client.position" class="form-control" required="required">
-                  <option value="OP">Operator</option>
-                  <option value="MG">Manager</option>
-                </select>
-                <p v-for="error in errors.position" class="text-red">{{ error }}</p>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-md-6 form-group">
                 <label for="address-create">Address</label>
                 <input id="address-create" placeholder="Address" v-model="client.address" type="text" class="form-control" required="required">
               </div>
+            </div>
+            <div class="row">
               <div class="col-md-6 form-group">
                 <label for="phone-create">Phone</label>
                 <input id="phone-create" placeholder="Phone" v-model="client.phone" type="text" class="form-control" required="required">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group" :class="[ errors.passwd ? 'has-error' : '']">
-                <label for="passwd-create">Password</label>
-                <input id="passwd-create" placeholder="Password" v-model="client.passwd" type="password" class="form-control" required="required">
-                <p v-for="error in errors.passwd" class="text-red">{{ error }}</p>
-              </div>
-              <div class="col-md-6 form-group" :class="[ errors.passwd ? 'has-error' : '']">
-                <label for="passwd_confirmation-create">Password confirmation</label>
-                <input id="passwd_confirmation-create" placeholder="Password confirmation" v-model="client.passwd_confirmation" type="password" class="form-control" required="required">
               </div>
             </div>
             <div class="pull-right">
@@ -85,7 +71,7 @@ export default {
     ...mapGetters('clients', ['client', 'errors'])
   },
   methods: {
-    ...mapActions('clients', ['addClients'])
+    ...mapActions('clients', ['addClient'])
   }
 }
 </script>

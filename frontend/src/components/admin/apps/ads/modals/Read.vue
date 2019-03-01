@@ -7,31 +7,22 @@
             <span aria-hidden="true">×</span>
           </button>
           <div class="modal-title">
-            <h3>Client information</h3>
+            <h3>Ad information</h3>
           </div>
         </div>
         <div class="modal-body">
           <ul>
             <li>
-              <p><strong>Identification:</strong> {{ client.identification }}.</p>
+              <p><strong>ID:</strong> {{ ad.id }}.</p>
             </li>
             <li>
-              <p><strong>Full name:</strong> {{ client.first_name }} {{ client.last_name }}.</p>
+              <p><strong>Description:</strong> {{ ad.description }}.</p>
             </li>
             <li>
-              <p><strong>Email:</strong> {{ client.email }}.</p>
+              <p><strong>Image:</strong> {{ ad.image }}.</p>
             </li>
             <li>
-              <p><strong>Phone:</strong> {{ client.phone }}.</p>
-            </li>
-            <li>
-              <p><strong>Address:</strong> {{ client.address }}.</p>
-            </li>
-            <li>
-              <p><strong>Status:</strong> {{ client.is_active ? 'Active' : 'Inactive' }}.</p>
-            </li>
-            <li>
-              <p><strong>VIP:</strong> {{ client.is_vip ? 'Yes' : 'No' }}.</p>
+              <p><strong>Status:</strong> {{ ad.is_active ? 'Active' : 'Inactive' }}.</p>
             </li>
           </ul>
           <div class="pull-right">
@@ -49,7 +40,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('clients', ['client'])
+    ...mapGetters('ads', ['ad'])
   }
 }
 </script>
