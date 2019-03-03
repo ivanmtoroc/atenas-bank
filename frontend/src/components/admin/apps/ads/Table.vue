@@ -28,18 +28,16 @@
                   <table id="table" class="table table-bordered table-striped dataTable" role="grid">
                     <thead>
                       <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">ID</th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Name</th>
                         <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Description</th>
-                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Image</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Status</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="ad in ads" role="row" class="odd">
-                        <td>{{ ad.id }}</td>
+                        <td>{{ ad.name }}</td>
                         <td>{{ ad.description }}</td>
-                        <td>{{ ad.image }}</td>
                         <td class="text-center">
                           <p v-if="ad.status" class="badge bg-green p-bg">Active</p>
                           <p v-else class="badge bg-red p-bg">Inactive</p>

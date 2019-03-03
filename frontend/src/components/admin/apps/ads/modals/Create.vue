@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="modal-body">
-          <form @submit.prevent="addAd()">
+          <form @submit.prevent="addAd(file)">
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="name-create">Name</label>
@@ -23,9 +23,8 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="image-create">Image</label>
-                <input id="image-create" placeholder="Image" type="file"  @change="processFile($event)" class="form-control" >
+              <div class="col-md-6 custom-file">
+                <input type="file" ref="file" class="custom-file-input" id="image-create" @change="handleFileUpload()">
               </div>
             </div>
             <div class="pull-right">
@@ -44,13 +43,18 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  data () {
+    return {
+      file: ''
+    }
+  },
   computed: {
     ...mapGetters('ads', ['ad', 'errors'])
   },
   methods: {
     ...mapActions('ads', ['addAd']),
-    processFile (event) {
-      this.someData = event.target.files[0]
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
     }
   }
 }

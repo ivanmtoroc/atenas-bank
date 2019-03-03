@@ -8,7 +8,8 @@ const state = {
   ads: [],
   ad: {},
   errors: {},
-  existsErrors: false
+  existsErrors: false,
+  formData: new FormData()
 }
 
 const getters = {
@@ -19,6 +20,7 @@ const getters = {
     state.ads.forEach(ad => {
       ads.push({
         id: ad['id'],
+        name: ad['name'],
         description: ad['description'],
         image: ad['image'],
         status: ad['is_active']
@@ -26,6 +28,7 @@ const getters = {
     })
     return ads
   },
+  formData: state => state.formData,
   headers: (state, getters, rootGetters) => {
     return { headers: { Authorization: 'Token ' + rootGetters.authentication.token } }
   }
@@ -57,6 +60,11 @@ const mutations = {
       image: null,
       is_active: true
     }
+  },
+  buildRequest (state, file) {
+    state.formData.append('image', file)
+    state.formData.append('name', state.ad.name)
+    state.formData.append('description', state.ad.description)
   }
 }
 
@@ -74,9 +82,10 @@ const actions = {
     await http.delete(`ads/${id}/`, getters.headers)
     await dispatch('getAds')
   },
-  async addAd ({ dispatch, commit, state, getters }) {
+  async addAd ({ dispatch, commit, state, getters }, file) {
     commit('cleanErrors')
-    await http.post('ads/', state.ad, getters.headers)
+    commit('buildRequest', file)
+    await http.post('ads/', state.formData, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getAds')
@@ -84,9 +93,10 @@ const actions = {
       commit('cleanData')
     }
   },
-  async updateAd ({ dispatch, commit, state, getters }) {
+  async updateAd ({ dispatch, commit, state, getters }, file) {
     commit('cleanErrors')
-    await http.put(`ads/${state.ad.identification}/`, state.ad, getters.headers)
+    commit('buildRequest', file)
+    await http.put(`ads/${state.ad.id}/`, state.formData, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getAds')

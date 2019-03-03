@@ -29,6 +29,17 @@ router.beforeEach((to, from, next) => {
         next()
       }
       break
+    case 'home':
+    case 'users':
+    case 'offices':
+    case 'clients':
+    case 'ads':
+      if (!logged) {
+        next({ name: 'authentication' })
+      } else {
+        next()
+      }
+      break
     default:
       next()
   }
