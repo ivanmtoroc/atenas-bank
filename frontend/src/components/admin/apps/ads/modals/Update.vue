@@ -11,25 +11,29 @@
           </div>
         </div>
         <div class="modal-body">
-          <form @submit.prevent="updateAds()">
+          <form @submit.prevent="updateAd(file)">
             <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="identification-update">ID</label>
-                <input id="identification-update" placeholder="ID" v-model="ad.id" type="text" class="form-control" required="required" readonly>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="identification-update">Id</label>
+                  <input id="identification-update" placeholder="Id" v-model="ad.id" type="text" class="form-control" required="required" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="name-update">Name</label>
+                  <input id="name-update" placeholder="Name" v-model="ad.name" type="text" class="form-control" required="required">
+                </div>
+                <div class="form-group">
+                  <label for="description-update">Description</label>
+                  <input id="description-update" placeholder="Description" v-model="ad.description" type="text" class="form-control" required="required">
+                </div>
               </div>
-              <div class="col-md-6 form-group">
-                <label for="name-update">Name</label>
-                <input id="name-update" placeholder="Name" v-model="ad.id" type="text" class="form-control" required="required">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="description-update">Description</label>
-                <input id="description-update" placeholder="Description" v-model="ad.description" type="text" class="form-control" required="required">
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="image-update">Image</label>
-                <input id="image-update" placeholder="Image" v-model="ad.image" type="text" class="form-control" required="required">
+              <div class="col-md-6">
+                <div class="custom-file">
+                  <input type="file" ref="file" class="custom-file-input" id="image-create" @change="handleFileUpload()">
+                </div>
+                <div class="form-group center">
+                  <img :src="ad.image" alt="Ad image" width="auto" height="200">
+                </div>
               </div>
             </div>
             <div class="pull-right">
@@ -48,11 +52,19 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  data () {
+    return {
+      file: ''
+    }
+  },
   computed: {
     ...mapGetters('ads', ['ad', 'errors'])
   },
   methods: {
-    ...mapActions('ads', ['updateAds'])
+    ...mapActions('ads', ['updateAd']),
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
+    }
   }
 }
 </script>

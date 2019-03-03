@@ -13,17 +13,14 @@
         <div class="modal-body">
           <ul>
             <li>
-              <p><strong>ID:</strong> {{ ad.id }}.</p>
-            </li>
-            <li>
-            <li>
               <p><strong>Name:</strong> {{ ad.name }}.</p>
             </li>
             <li>
               <p><strong>Description:</strong> {{ ad.description }}.</p>
             </li>
             <li>
-              <p><strong>Image:</strong> {{ ad.image }}.</p>
+              <p><strong>Image:</strong></p>
+              <img :src="ad.image" alt="Ad image" width="auto" height="200">
             </li>
             <li>
               <p><strong>Status:</strong> {{ ad.is_active ? 'Active' : 'Inactive' }}.</p>
