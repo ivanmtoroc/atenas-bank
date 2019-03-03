@@ -4,7 +4,7 @@
       <div class="list-inline">
         <h1>
           Clients
-          <a @click="cleanData()" href="#create" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create">
+          <a @click="cleanData()" href="#create" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#create">
             + New client
           </a>
         </h1>

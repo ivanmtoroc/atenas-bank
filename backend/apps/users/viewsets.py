@@ -40,9 +40,9 @@ class UserViewSet(viewsets.ModelViewSet):
         data = {
             'user': {
                 'username': user.get('username'),
-                'identification': user.get('identification'),
+                'id': user.get('identification'),
                 'email': user.get('email'),
-                'nombre': '{} {}'.format(user.get('first_name'), user.get('last_name')),
+                'name': '{} {}'.format(user.get('first_name'), user.get('last_name')),
                 'position': user.get('position')
             },
             'token': token

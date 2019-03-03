@@ -4,7 +4,7 @@
       <div class="list-inline">
         <h1>
           Users
-          <a @click="cleanData()" href="#create" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create">
+          <a @click="cleanData()" href="#create" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#create">
             + New user
           </a>
         </h1>
@@ -49,7 +49,7 @@
                           <p v-else class="badge bg-red p-bg">Inactive</p>
                         </td>
                         <td class="text-center">
-                          <a @click="getUser(user.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[user.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
+                          <a v-if="authUser.id !== user.id" @click="getUser(user.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[user.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
                             <i v-if="user.status" class="fa fa-user-times"></i>
                             <i v-else class="fa fa-user-plus"></i>
                           </a>
@@ -92,6 +92,7 @@ export default {
     Update
   },
   computed: {
+    ...mapGetters('authentication', ['authUser']),
     ...mapGetters('users', ['users'])
   },
   methods: {

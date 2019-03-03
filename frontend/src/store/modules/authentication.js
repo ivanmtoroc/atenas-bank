@@ -29,7 +29,7 @@ const getters = {
     return !state.token ? false : true
   },
   // eslint-disable-next-line
-  user: state => state.user,
+  authUser: state => state.user,
   errors: state => state.errors,
   token: state => state.token
 }
@@ -49,7 +49,7 @@ const mutations = {
     state.user = {
       nombre: null,
       email: null,
-      identification: null,
+      id: null,
       posicion: null,
       username: null
     }
