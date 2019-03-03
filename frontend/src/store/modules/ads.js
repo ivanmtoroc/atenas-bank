@@ -25,6 +25,9 @@ const getters = {
       })
     })
     return ads
+  },
+  headers: (state, getters, rootGetters) => {
+    return { headers: { Authorization: 'Token ' + rootGetters.authentication.token } }
   }
 }
 
@@ -58,22 +61,22 @@ const mutations = {
 }
 
 const actions = {
-  async getAds ({ state }) {
-    const response = await http.get('ads/')
+  async getAds ({ state, getters }) {
+    const response = await http.get('ads/', getters.headers)
     state.ads = response.data
   },
-  async getAd ({ commit, state }, id) {
+  async getAd ({ commit, state, getters }, id) {
     commit('cleanData')
-    const response = await http.get(`ads/${id}/`)
+    const response = await http.get(`ads/${id}/`, getters.headers)
     state.ad = response.data
   },
-  async deleteAd ({ dispatch }, id) {
-    await http.delete(`ads/${id}/`)
+  async deleteAd ({ dispatch, getters }, id) {
+    await http.delete(`ads/${id}/`, getters.headers)
     await dispatch('getAds')
   },
-  async addAd ({ dispatch, commit, state }) {
+  async addAd ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.post('ads/', state.ad)
+    await http.post('ads/', state.ad, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getAds')
@@ -81,9 +84,9 @@ const actions = {
       commit('cleanData')
     }
   },
-  async updateAd ({ dispatch, commit, state }) {
+  async updateAd ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`ads/${state.ad.identification}/`, state.ad)
+    await http.put(`ads/${state.ad.identification}/`, state.ad, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getAds')

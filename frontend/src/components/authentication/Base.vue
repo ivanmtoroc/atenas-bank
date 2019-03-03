@@ -11,12 +11,12 @@
           <p>{{ error }}</p>
         </div>
         <div class="form-group has-feedback is-empty">
-          <input type="username" v-model="user.username" class="form-control" placeholder="Username" required="required">
+          <input type="username" v-model="authUser.username" class="form-control" placeholder="Username" required="required">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           <p v-for="error in errors.username" class="text-red">{{ error }}</p>
         </div>
         <div class="form-group has-feedback is-empty">
-          <input type="password" v-model="user.passwd" class="form-control" placeholder="Password" required="required">
+          <input type="password" v-model="authUser.passwd" class="form-control" placeholder="Password" required="required">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           <p v-for="error in errors.passwd" class="text-red">{{ error }}</p>
         </div>
@@ -35,7 +35,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('authentication', ['user', 'errors'])
+    ...mapGetters('authentication', ['authUser', 'errors'])
   },
   methods: {
     ...mapActions('authentication', ['login'])

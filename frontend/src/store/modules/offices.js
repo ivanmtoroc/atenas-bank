@@ -25,6 +25,9 @@ const getters = {
       })
     })
     return offices
+  },
+  headers: (state, getters, rootGetters) => {
+    return { headers: { Authorization: 'Token ' + rootGetters.authentication.token } }
   }
 }
 
@@ -58,22 +61,22 @@ const mutations = {
 }
 
 const actions = {
-  async getOffices ({ state }) {
-    const response = await http.get('offices/')
+  async getOffices ({ commit, state, getters }) {
+    const response = await http.get('offices/', getters.headers)
     state.offices = response.data
   },
-  async getOffice ({ commit, state }, id) {
+  async getOffice ({ commit, state, getters }, id) {
     commit('cleanData')
-    const response = await http.get(`offices/${id}/`)
+    const response = await http.get(`offices/${id}/`, getters.headers)
     state.office = response.data
   },
-  async deleteOffice ({ dispatch }, id) {
-    await http.delete(`offices/${id}/`)
+  async deleteOffice ({ dispatch, getters }, id) {
+    await http.delete(`offices/${id}/`, getters.headers)
     await dispatch('getOffices')
   },
-  async addOffice ({ dispatch, commit, state }) {
+  async addOffice ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.post('offices/', state.office)
+    await http.post('offices/', state.office, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getOffices')
@@ -81,9 +84,9 @@ const actions = {
       commit('cleanData')
     }
   },
-  async updateOffice ({ dispatch, commit, state }) {
+  async updateOffice ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`offices/${state.office.code}/`, state.office)
+    await http.put(`offices/${state.office.code}/`, state.office, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getOffices')
