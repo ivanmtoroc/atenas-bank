@@ -80,12 +80,12 @@ const actions = {
     state.user = response.data
   },
   async deleteUser ({ dispatch, getters }, id) {
-    await http.delete(`users/${id}/`)
+    await http.delete(`users/${id}/`, getters.headers)
     await dispatch('getUsers')
   },
-  async addUser ({ dispatch, commit, state }) {
+  async addUser ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.post('users/', state.user)
+    await http.post('users/', state.user, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')
@@ -93,9 +93,9 @@ const actions = {
       commit('cleanData')
     }
   },
-  async updateUser ({ dispatch, commit, state }) {
+  async updateUser ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`users/${state.user.identification}/`, state.user)
+    await http.put(`users/${state.user.identification}/`, state.user, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')
