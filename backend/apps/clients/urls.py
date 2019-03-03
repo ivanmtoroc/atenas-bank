@@ -7,6 +7,7 @@ from rest_framework import routers
 # Viewsets
 from apps.clients.viewsets import ClientViewSet
 
+
 app_name = 'clients'
 
 router = routers.DefaultRouter()

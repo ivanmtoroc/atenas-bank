@@ -7,6 +7,7 @@ from rest_framework import routers
 # Viewsets
 from apps.offices.viewsets import OfficeViewSet
 
+
 app_name = 'offices'
 
 router = routers.DefaultRouter()

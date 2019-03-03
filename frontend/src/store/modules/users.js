@@ -27,6 +27,9 @@ const getters = {
       })
     })
     return users
+  },
+  headers: (state, getters, rootGetters) => {
+    return { headers: { Authorization: 'Token ' + rootGetters.authentication.token } }
   }
 }
 
@@ -67,22 +70,22 @@ const mutations = {
 }
 
 const actions = {
-  async getUsers ({ state }) {
-    const response = await http.get('users/')
+  async getUsers ({ state, getters }) {
+    const response = await http.get('users/', getters.headers)
     state.users = response.data
   },
-  async getUser ({ commit, state }, id) {
+  async getUser ({ commit, state, getters }, id) {
     commit('cleanData')
-    const response = await http.get(`users/${id}/`)
+    const response = await http.get(`users/${id}/`, getters.headers)
     state.user = response.data
   },
-  async deleteUser ({ dispatch }, id) {
-    await http.delete(`users/${id}/`)
+  async deleteUser ({ dispatch, getters }, id) {
+    await http.delete(`users/${id}/`, getters.headers)
     await dispatch('getUsers')
   },
-  async addUser ({ dispatch, commit, state }) {
+  async addUser ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.post('users/', state.user)
+    await http.post('users/', state.user, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')
@@ -90,9 +93,9 @@ const actions = {
       commit('cleanData')
     }
   },
-  async updateUser ({ dispatch, commit, state }) {
+  async updateUser ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`users/${state.user.identification}/`, state.user)
+    await http.put(`users/${state.user.identification}/`, state.user, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')

@@ -1,7 +1,9 @@
 # Backend
 .env/
+.idea/
 __pycache__/
 migrations/
+media/
 
 # Frontend
 node_modules

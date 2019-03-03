@@ -7,6 +7,7 @@ from rest_framework import routers
 # Viewsets
 from apps.tickets.viewsets import TicketViewSet
 
+
 app_name = 'tickets'
 
 router = routers.DefaultRouter()
