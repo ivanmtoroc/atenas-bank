@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { TOKEN } from './authentication'
 
 const http = axios.create({
   baseURL: 'http://localhost:8000'
@@ -28,6 +27,9 @@ const getters = {
       })
     })
     return users
+  },
+  headers: (state, getters, rootGetters) => {
+    return { headers: { Authorization: 'Token ' + rootGetters.authentication.token } }
   }
 }
 
@@ -68,26 +70,22 @@ const mutations = {
 }
 
 const actions = {
-  async getUsers ({ state }) {
-    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
-    const response = await http.get('users/', { headers })
+  async getUsers ({ state, getters }) {
+    const response = await http.get('users/', getters.headers)
     state.users = response.data
   },
-  async getUser ({ commit, state }, id) {
+  async getUser ({ commit, state, getters }, id) {
     commit('cleanData')
-    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
-    const response = await http.get(`users/${id}/`, { headers })
+    const response = await http.get(`users/${id}/`, getters.headers)
     state.user = response.data
   },
-  async deleteUser ({ dispatch }, id) {
-    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
-    await http.delete(`users/${id}/`, { headers })
+  async deleteUser ({ dispatch, getters }, id) {
+    await http.delete(`users/${id}/`)
     await dispatch('getUsers')
   },
   async addUser ({ dispatch, commit, state }) {
     commit('cleanErrors')
-    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
-    await http.post('users/', { headers }, state.user)
+    await http.post('users/', state.user)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')
@@ -97,8 +95,7 @@ const actions = {
   },
   async updateUser ({ dispatch, commit, state }) {
     commit('cleanErrors')
-    const headers = { Authorization: 'Token ' + localStorage[TOKEN] }
-    await http.put(`users/${state.user.identification}/`, { headers }, state.user)
+    await http.put(`users/${state.user.identification}/`, state.user)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')

@@ -49,9 +49,9 @@ export default {
   },
   methods: {
     ...mapActions('ads', ['addAd']),
-    processFile(event) {
-    this.someData = event.target.files[0]
-  }
+    processFile (event) {
+      this.someData = event.target.files[0]
+    }
   }
 }
 </script>
