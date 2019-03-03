@@ -11,7 +11,7 @@
       </div>
       <ol class="breadcrumb">
         <li>
-          <router-link :to="{ name: 'admin' }">
+          <router-link :to="{ name: 'home' }">
             <span>Home</span>
           </router-link>
         </li>

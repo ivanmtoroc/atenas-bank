@@ -10,6 +10,7 @@ from apps.users.serializers import UserSerializer, UserLoginSerializer
 # Models
 from apps.users.models import User
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -35,8 +36,15 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserLoginSerializer(data = request.data)
         serializer.is_valid(raise_exception = True)
         user, token = serializer.save()
+        user = UserSerializer(user).data
         data = {
-            'user': UserSerializer(user).data,
-            'access_token': token
+            'user': {
+                'username': user.get('username'),
+                'identification': user.get('identification'),
+                'email': user.get('email'),
+                'nombre': '{} {}'.format(user.get('first_name'), user.get('last_name')),
+                'position': user.get('position')
+            },
+            'token': token
         }
         return Response(data, status = status.HTTP_201_CREATED)

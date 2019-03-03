@@ -50,11 +50,20 @@ class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length = 20)
     passwd = serializers.CharField(min_length = 8, max_length = 64)
 
+    def validate_username(self, value):
+        try:
+            user = User.objects.get(username = value)
+        except User.DoesNotExist:
+            raise ValidationError('User does not exist.')
+        if not user.is_active:
+            raise ValidationError('User is not active.')
+        self.context['user'] = user
+        return value
+
     def validate(self, data):
         user = authenticate(username = data['username'], password = data['passwd'])
         if not user:
-            raise serializers.ValidationError('Invalid credentials')
-        self.context['user'] = user
+            raise serializers.ValidationError('Invalid credentials.')
         return data
 
     def create(self, data):
