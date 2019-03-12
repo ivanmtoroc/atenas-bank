@@ -5,6 +5,7 @@ import store from '@/store'
 import admin from './modules/admin'
 import landing from './modules/landing'
 import authentication from './modules/authentication'
+import tickets from './modules/tickets'
 
 Vue.use(Router)
 
@@ -15,6 +16,7 @@ const router = new Router({
     { ...landing },
     { ...authentication },
     { ...admin },
+    { ...tickets },
     { path: '*', redirect: '/' }
   ]
 })
