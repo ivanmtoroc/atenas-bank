@@ -13,7 +13,7 @@ from apps.offices.models import Office
 class OfficeViewSet(viewsets.ModelViewSet):
     queryset = Office.objects.all()
     serializer_class = OfficeSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def destroy(self, request, *args, **kwargs):
         office = self.get_object()

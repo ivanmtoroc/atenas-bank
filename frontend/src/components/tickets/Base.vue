@@ -1,6 +1,16 @@
 <template>
   <div>
-    <h1>This is the Tickets Base</h1>
+    <ads></ads>
     <router-view/>
   </div>
 </template>
+
+<script>
+import Ads from '@/components/tickets/layout/Ads'
+
+export default {
+  components: {
+    Ads
+  }
+}
+</script>

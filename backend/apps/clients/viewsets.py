@@ -13,7 +13,7 @@ from apps.clients.models import Client
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def destroy(self, request, *args, **kwargs):
         client = self.get_object()

@@ -34,6 +34,11 @@ const getters = {
 }
 
 const mutations = {
+  updateTable () {
+    // eslint-disable-next-line
+    var table = $('#table').DataTable()
+    table.draw()
+  },
   dataTable (state) {
     // eslint-disable-next-line
     $(function () { $('#table').DataTable() })
@@ -70,7 +75,7 @@ const mutations = {
 }
 
 const actions = {
-  async getUsers ({ state, getters }) {
+  async getUsers ({ state, commit, getters }) {
     const response = await http.get('users/', getters.headers)
     state.users = response.data
   },

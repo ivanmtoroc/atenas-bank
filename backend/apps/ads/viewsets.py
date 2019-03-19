@@ -13,7 +13,7 @@ from apps.ads.models import Ad
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def destroy(self, request, *args, **kwargs):
         ad = self.get_object()

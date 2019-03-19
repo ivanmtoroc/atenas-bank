@@ -6,6 +6,7 @@ import authentication from './modules/authentication'
 import offices from './modules/offices'
 import clients from './modules/clients'
 import ads from './modules/ads'
+import tickets from './modules/tickets'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     authentication,
     offices,
     clients,
-    ads
+    ads,
+    tickets
   }
 })

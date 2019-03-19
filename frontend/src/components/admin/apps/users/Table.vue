@@ -97,12 +97,12 @@ export default {
   },
   methods: {
     ...mapActions('users', ['getUsers', 'getUser']),
-    ...mapMutations('users', ['cleanData', 'dataTable'])
+    ...mapMutations('users', ['cleanData', 'dataTable', 'updateTable'])
   },
-  beforeMount () {
+  mounted () {
     this.getUsers()
   },
-  beforeUpdate () {
+  updated () {
     this.dataTable()
   }
 }
