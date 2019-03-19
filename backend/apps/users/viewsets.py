@@ -15,12 +15,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get_permissions(self):
-        if self.action in ['login']:
-            permissions = [AllowAny]
-        else:
-            permissions = [IsAuthenticated]
-        return [ p() for p in permissions ]
+    # def get_permissions(self):
+    #     if self.action in ['login']:
+    #         permissions = [AllowAny]
+    #     else:
+    #         permissions = [IsAuthenticated]
+    #     return [ p() for p in permissions ]
 
     def destroy(self, request, *args, **kwargs):
         user = self.get_object()
