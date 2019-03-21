@@ -1,7 +1,7 @@
 # Django
 from django.db import models
 
-ACTIVITIES = (
+SERVICES = (
     ('GEN', 'General'),
     ('IAE', 'Imports and exports'),
     ('INS', 'Insurances'),
@@ -11,22 +11,23 @@ ACTIVITIES = (
 
 STATUS = (
     ('ATT', 'Attended'),
+    ('IAT', 'In attention'),
     ('NAT', 'No attended'),
-    ('DEF', 'Deferred')
+    ('OHL', 'On hold'),
+    ('DFR', 'Deferred')
 )
 
 class Ticket(models.Model):
-    turn_number = models.CharField(max_length = 4)
-    user = models.CharField(max_length = 20)
-    is_user_vip = models.BooleanField(default = False)
-    activity = models.CharField(max_length = 20, choices = ACTIVITIES)
+    turn_number = models.CharField(max_length = 6)
+    user = models.CharField(max_length = 10)
+    service = models.CharField(max_length = 3, choices = SERVICES)
     status = models.CharField(max_length = 3, choices = STATUS, default = 'NAT')
-    is_active = models.BooleanField(default = True)
-    time_arrive = models.TimeField(auto_now_add = True)
-    init_time = models.TimeField(blank = True)
-    finish_time = models.TimeField(blank = True)
-    total_time = models.IntegerField(default = 0)
+    deferred = models.BooleanField(default = False)
     date = models.DateField(auto_now_add = True)
+    time_arrive = models.TimeField(auto_now_add = True)
+    init_time = models.TimeField(null = True)
+    finish_time = models.TimeField(null = True)
+    attention_time = models.TimeField(null = True)
 
     def __str__(self):
-        return self.name
+        return self.turn_number

@@ -4,23 +4,36 @@ const http = axios.create({
   baseURL: 'http://localhost:8000'
 })
 
+const WS = 'ws://localhost:8000/ws/tickets/'
+
 const state = {
   ticket: {},
-  identification: ''
+  identification: '',
+  webSocket: null,
+  currentTicket: {
+    turn_number: ''
+  },
+  listView: false
 }
 
 const getters = {
-  ticket: state => state.ticket,
-  identification: state => state.identification
+  identification: state => state.identification,
+  currentTicket: state => state.currentTicket
 }
 
 const mutations = {
+  initWSConection (state) {
+    state.webSocket = new WebSocket(WS)
+  },
   cleanData (state) {
     state.ticket = {}
     state.identification = ''
   },
+  setView (state) {
+    state.listView = true
+  },
   setService (state, service) {
-    state.ticket.service = service
+    state.ticket.activity = service
   },
   change (state, value) {
     if (value === 'DEL') {
@@ -33,8 +46,29 @@ const mutations = {
 
 const actions = {
   async getTicket ({ state }) {
-    state.ticket.identification = state.identification
+    state.ticket.user = state.identification
+    state.ticket.turn_number = '001'
     await http.post('tickets/', state.ticket)
+  },
+  send ({ state, rootGetters }, service) {
+    state.webSocket.send(JSON.stringify({
+      'service': service,
+      'operator': rootGetters['authentication/authUser']['id']
+    }))
+  },
+  retrieve ({ state, rootGetters }) {
+    state.webSocket.onmessage = (response) => {
+      const data = JSON.parse(response.data)
+      if (data['operator'] === rootGetters['authentication/authUser']['id'] || state.listView) {
+        if (data['with-ticket']) {
+          state.currentTicket = data['ticket']
+        } else {
+          state.currentTicket = {
+            turn_number: ''
+          }
+        }
+      }
+    }
   }
 }
 

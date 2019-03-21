@@ -30,6 +30,7 @@ const getters = {
   },
   // eslint-disable-next-line
   authUser: state => state.user,
+  position: state => state.user.position,
   errors: state => state.errors,
   token: state => state.token
 }
