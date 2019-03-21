@@ -1,7 +1,7 @@
 <template>
   <aside class="main-sidebar">
     <section class="sidebar">
-      <ul class="sidebar-menu" data-widget="tree">
+      <ul v-if="authUser.position === 'MG'" class="sidebar-menu" data-widget="tree">
         <li class="active">
           <router-link :to="{ name: 'home' }">
             <i class="fa fa-home"></i><span>Home</span>
@@ -28,6 +28,23 @@
           </router-link>
         </li>
       </ul>
+      <ul v-else class="sidebar-menu" data-widget="tree">
+        <li class="active">
+          <router-link :to="{ name: 'operator' }">
+            <i class="fa fa-home"></i><span>Dashboard</span>
+          </router-link>
+        </li>
+      </ul>
     </section>
   </aside>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters('authentication', ['authUser'])
+  }
+}
+</script>

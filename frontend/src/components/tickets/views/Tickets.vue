@@ -3,34 +3,7 @@
     <div class="small-box bg-green">
       <div class="inner">
         <h3>Cashier 1</h3>
-        <p>G01</p>
-      </div>
-      <div class="icon">
-        <i class="fa fa-fw fa-ticket"></i>
-      </div>
-    </div>
-    <div class="small-box bg-hadder">
-      <div class="inner">
-        <h3>Cashier 1</h3>
-        <p>G01</p>
-      </div>
-      <div class="icon">
-        <i class="fa fa-fw fa-ticket"></i>
-      </div>
-    </div>
-    <div class="small-box bg-hadder">
-      <div class="inner">
-        <h3>Cashier 1</h3>
-        <p>G01</p>
-      </div>
-      <div class="icon">
-        <i class="fa fa-fw fa-ticket"></i>
-      </div>
-    </div>
-    <div class="small-box bg-hadder">
-      <div class="inner">
-        <h3>Cashier 1</h3>
-        <p>G01</p>
+        <p>{{ currentTicket.turn_number }}</p>
       </div>
       <div class="icon">
         <i class="fa fa-fw fa-ticket"></i>
@@ -40,22 +13,20 @@
 </template>
 
 <script>
-var ticketsWebSocket = new WebSocket(
-  'ws://localhost:8000/ws/tickets/'
-)
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      ticket: 'ticket'
-    }
+  computed: {
+    ...mapGetters('tickets', ['currentTicket'])
+  },
+  methods: {
+    ...mapMutations('tickets', ['initWSConection', 'setView']),
+    ...mapActions('tickets', ['retrieve'])
   },
   mounted () {
-    var _this = this
-    ticketsWebSocket.onmessage = function (e) {
-      var data = JSON.parse(e.data)
-      _this.ticket = data['ticket']
-    }
+    this.initWSConection()
+    this.setView()
+    this.retrieve()
   }
 }
 </script>

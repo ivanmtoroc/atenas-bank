@@ -23,6 +23,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const logged = store.getters['authentication/logged']
+  const position = store.getters['authentication/position']
   switch (to.name) {
     case 'authentication':
       if (logged) {
@@ -38,6 +39,15 @@ router.beforeEach((to, from, next) => {
     case 'ads':
       if (!logged) {
         next({ name: 'authentication' })
+      } else if (position === 'OP') {
+        next({ name: 'operator' })
+      } else {
+        next()
+      }
+      break
+    case 'operator':
+      if (position === 'MG') {
+        next({ name: 'home' })
       } else {
         next()
       }
