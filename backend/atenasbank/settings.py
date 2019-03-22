@@ -8,15 +8,18 @@ DEBUG = True
 
 AUTH_USER_MODEL = 'users.User'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-INSTALLED_APPS = [
+SHARED_APPS = (
+    'django_tenants',
+    'apps.offices',
+
     'channels',
     'channels_redis',
 
+    'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -26,15 +29,25 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'apps.users',
-    'apps.offices',
     'apps.ads',
     'apps.clients',
-    'apps.tickets'
-]
+)
+
+TENANT_APPS = (
+    'django.contrib.contenttypes',
+    'apps.tickets',
+)
+
+INSTALLED_APPS = list(set(SHARED_APPS + TENANT_APPS))
+
+TENANT_MODEL = 'offices.Office'
+
+TENANT_DOMAIN_MODEL = 'offices.Domain'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -67,7 +80,7 @@ WSGI_APPLICATION = 'atenasbank.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': 'atenasbank',
         'USER': 'ivanmtoroc',
         'PASSWORD': 'ivanmtoroc',
@@ -75,6 +88,10 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
