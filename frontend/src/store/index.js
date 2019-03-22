@@ -7,6 +7,7 @@ import offices from './modules/offices'
 import clients from './modules/clients'
 import ads from './modules/ads'
 import tickets from './modules/tickets'
+import operator from './modules/operator'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     offices,
     clients,
     ads,
-    tickets
+    tickets,
+    operator
   }
 })

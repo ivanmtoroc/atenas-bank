@@ -11,7 +11,8 @@ const state = {
   identification: '',
   webSocket: null,
   currentTicket: {
-    turn_number: ''
+    turn_number: '',
+    user: ''
   },
   listView: false
 }
@@ -29,11 +30,17 @@ const mutations = {
     state.ticket = {}
     state.identification = ''
   },
+  cleanTicket (state) {
+    state.currentTicket = {
+      turn_number: '',
+      user: ''
+    }
+  },
   setView (state) {
     state.listView = true
   },
   setService (state, service) {
-    state.ticket.activity = service
+    state.ticket.service = service
   },
   change (state, value) {
     if (value === 'DEL') {
@@ -64,7 +71,8 @@ const actions = {
           state.currentTicket = data['ticket']
         } else {
           state.currentTicket = {
-            turn_number: ''
+            turn_number: '',
+            user: ''
           }
         }
       }
