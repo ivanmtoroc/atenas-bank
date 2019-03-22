@@ -12,12 +12,7 @@ def next_ticket(service):
         if not ticket:
             ticket = Ticket.objects.filter(date = today, status = 'NAT').order_by('time_arrive').first()
             if not ticket:
-                return None    
+                return None
     ticket.status = 'OHL'
     ticket.save()
     return ticket
-
-def init_attention(id):
-    ticket = Ticket.objects.get(id = id)
-    ticket.init_time = datetime.now()
-    ticket.save()
