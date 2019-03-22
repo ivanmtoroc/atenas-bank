@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '@/router'
 
 const http = axios.create({
   baseURL: 'http://localhost:8000'
@@ -54,8 +55,9 @@ const mutations = {
 const actions = {
   async getTicket ({ state }) {
     state.ticket.user = state.identification
-    state.ticket.turn_number = '001'
-    await http.post('tickets/', state.ticket)
+    const response = await http.post('tickets/', state.ticket)
+    state.currentTicket = response.data
+    router.push({ name: 'ticket' })
   },
   send ({ state, rootGetters }, service) {
     state.webSocket.send(JSON.stringify({
