@@ -11,7 +11,7 @@ from apps.tickets.serializers import TicketSerializer
 from apps.tickets.models import Ticket
 
 # Python
-from datetime import datetime, timedelta
+from datetime import datetime, date, timedelta
 
 
 class TicketViewSet(viewsets.ModelViewSet):
@@ -27,6 +27,11 @@ class TicketViewSet(viewsets.ModelViewSet):
             'message': 'Delete success.'
         }
         return Response(data = data)
+
+    def perform_create(self, serializer):
+        ticket = serializer.save()
+        ticket.set_turn_number()
+        ticket.save()
 
     @action(detail = True, methods = ['get'])
     def init_attention(self, request, pk = None):
@@ -68,6 +73,14 @@ class TicketViewSet(viewsets.ModelViewSet):
         if ticket.deferred:
             ticket.status = 'DFR'
         else:
+            next_ticket = Ticket.objects.filter(date = date.today(), service = ticket.service, status = 'NAT').order_by('time_arrive').first()
+            if next_ticket:
+                time = timedelta(
+                    hours = next_ticket.time_arrive.hour,
+                    minutes = next_ticket.time_arrive.minute,
+                    seconds = next_ticket.time_arrive.second + 1
+                )
+                ticket.time_arrive = (datetime.min + time).time()
             ticket.status = 'NAT'
         ticket.deferred = True
         ticket.save()

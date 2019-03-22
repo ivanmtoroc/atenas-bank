@@ -2,7 +2,6 @@
   <div class="col-lg-4 col-xs-6">
     <div class="small-box bg-green">
       <div class="inner">
-        <h3>Cashier 1</h3>
         <p>{{ currentTicket.turn_number }}</p>
       </div>
       <div class="icon">
