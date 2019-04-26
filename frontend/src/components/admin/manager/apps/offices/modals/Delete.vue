@@ -21,7 +21,7 @@
           </div>
           <div class="pull-right">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-            <button data-dismiss="modal" @click="deleteOffice(office.code)" type="button" :class="[ office.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
+            <button data-dismiss="modal" @click="deleteOffice(office.id)" type="button" :class="[ office.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
               {{ office.is_active ? 'Deactivate' : 'Active' }}
             </button>
           </div>

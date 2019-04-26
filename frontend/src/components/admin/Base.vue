@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <div class="wrapper">
-      <header-component></header-component>
-      <aside-component></aside-component>
-      <div class="content-wrapper">
-        <router-view/>
-      </div>
-      <footer-component></footer-component>
+  <div class="wrapper">
+    <header-component></header-component>
+    <aside-component></aside-component>
+    <div class="content-wrapper" style="min-height: 90vh;">
+      <router-view/>
     </div>
+    <footer-component></footer-component>
   </div>
 </template>
 

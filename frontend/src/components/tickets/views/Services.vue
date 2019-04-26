@@ -6,6 +6,15 @@
         <h4>Request your ticket</h4>
       </div>
       <div class="box-body">
+        <div class="form-group has-feedback is-empty">
+          <label for="tenant">Tenant</label>
+          <select id="tenant" v-model="ticket.tenant" class="form-control" required>
+            <option v-for="office in tenantOffices" :value="office.schema_name">
+              {{ office.name }}
+            </option>
+          </select>
+          <span class="glyphicon glyphicon-home form-control-feedback"></span>
+        </div>
         <router-link @click.native="setService('GEN')" :to="{ name: 'identification' }" type="button" class="btn btn-block btn-default">
           General
         </router-link>
@@ -27,14 +36,20 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters('tickets', ['ticket']),
+    ...mapGetters('offices', ['tenantOffices'])
+  },
   methods: {
+    ...mapActions('offices', ['getOffices']),
     ...mapMutations('tickets', ['setService', 'cleanData'])
   },
   mounted () {
     this.cleanData()
+    this.getOffices()
   }
 }
 </script>

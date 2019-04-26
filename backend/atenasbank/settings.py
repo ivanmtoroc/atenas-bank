@@ -6,7 +6,7 @@ SECRET_KEY = 'pb)cxa808uq+gi#%=b4*i$2)#j-jxm06wtpgwq5#poz&_y@r#-'
 
 DEBUG = True
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.UserModel'
 
 ALLOWED_HOSTS = ['*']
 
@@ -18,7 +18,6 @@ SHARED_APPS = (
     'channels_redis',
 
     'django.contrib.contenttypes',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -35,14 +34,24 @@ SHARED_APPS = (
 
 TENANT_APPS = (
     'django.contrib.contenttypes',
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+
+    'apps.users',
     'apps.tickets',
 )
 
 INSTALLED_APPS = list(set(SHARED_APPS + TENANT_APPS))
 
-TENANT_MODEL = 'offices.Office'
+TENANT_MODEL = 'offices.OfficeModel'
 
-TENANT_DOMAIN_MODEL = 'offices.Domain'
+TENANT_DOMAIN_MODEL = 'offices.DomainModel'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -58,7 +67,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'atenasbank.urls'
+ROOT_URLCONF = 'atenasbank.urls_tenants'
+
+PUBLIC_SCHEMA_URLCONF = 'atenasbank.urls_public'
 
 TEMPLATES = [
     {
@@ -115,11 +126,11 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#     ),
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 ASGI_APPLICATION = 'atenasbank.routing.application'
 

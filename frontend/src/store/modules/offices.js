@@ -18,11 +18,25 @@ const getters = {
     var offices = []
     state.offices.forEach(office => {
       offices.push({
-        code: office['code'],
+        id: office['id'],
         name: office['name'],
-        employees: office['employees'],
+        schema_name: office['schema_name'],
         status: office['is_active']
       })
+    })
+    return offices
+  },
+  tenantOffices: state => {
+    var offices = []
+    state.offices.forEach(office => {
+      if (office['schema_name'] !== 'public') {
+        offices.push({
+          id: office['id'],
+          name: office['name'],
+          schema_name: office['schema_name'],
+          status: office['is_active']
+        })
+      }
     })
     return offices
   },
@@ -52,9 +66,9 @@ const mutations = {
     state.errors = {}
     state.existsErrors = false
     state.office = {
-      code: null,
+      id: null,
       name: null,
-      employees: null,
+      schema_name: null,
       is_active: true
     }
   }
@@ -62,7 +76,7 @@ const mutations = {
 
 const actions = {
   async getOffices ({ commit, state, getters }) {
-    const response = await http.get('offices/', getters.headers)
+    const response = await http.get('offices/')
     state.offices = response.data
   },
   async getOffice ({ commit, state, getters }, id) {
@@ -86,7 +100,7 @@ const actions = {
   },
   async updateOffice ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`offices/${state.office.code}/`, state.office, getters.headers)
+    await http.put(`offices/${state.office.id}/`, state.office, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getOffices')

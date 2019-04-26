@@ -2,21 +2,21 @@
 from django.contrib.auth import password_validation, authenticate
 from django.core.exceptions import ValidationError
 
-# Django Rest Framework
+# Rest Framework
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
-# Models
-from apps.users.models import User
-
+# Users models
+from apps.users.models import UserModel
 
 class UserSerializer(serializers.ModelSerializer):
-    passwd = serializers.CharField(source = 'password')
-    passwd_confirmation = serializers.CharField(source = 'password')
+    password = serializers.CharField()
+    password_confirmation = serializers.CharField(source = 'password')
 
     class Meta:
-        model = User
+        model = UserModel
         fields = (
+            'id',
             'username',
             'identification',
             'first_name',
@@ -26,34 +26,34 @@ class UserSerializer(serializers.ModelSerializer):
             'phone',
             'address',
             'position',
-            'passwd',
-            'passwd_confirmation'
+            'password',
+            'password_confirmation'
         )
         extra_kwargs = {
-            'passwd': { 'write_only': True },
-            'passwd_confirmation': { 'write_only': True }
+            'password': { 'write_only': True },
+            'password_confirmation': { 'write_only': True }
         }
 
-    def validate_passwd(self, value):
+    def validate_password(self, value):
         data = self.get_initial()
-        passwd_confirmation = data.get('passwd_confirmation')
-        if value != passwd_confirmation:
-            raise ValidationError("Password dont match.")
+        password_confirmation = data.get('password_confirmation')
+        if value != password_confirmation:
+            raise ValidationError("Passwords don't match.")
         password_validation.validate_password(value)
         return value
 
     def create(self, data):
-        user = User.objects.create_user(**data)
+        user = UserModel.objects.create_user(**data)
         return user
 
-class UserLoginSerializer(serializers.Serializer):
+class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length = 20)
-    passwd = serializers.CharField(min_length = 8, max_length = 64)
+    password = serializers.CharField(min_length = 8, max_length = 64)
 
     def validate_username(self, value):
         try:
-            user = User.objects.get(username = value)
-        except User.DoesNotExist:
+            user = UserModel.objects.get(username = value)
+        except UserModel.DoesNotExist:
             raise ValidationError('User does not exist.')
         if not user.is_active:
             raise ValidationError('User is not active.')
@@ -61,7 +61,10 @@ class UserLoginSerializer(serializers.Serializer):
         return value
 
     def validate(self, data):
-        user = authenticate(username = data['username'], password = data['passwd'])
+        user = authenticate(
+            username = data['username'],
+            password = data['password']
+        )
         if not user:
             raise serializers.ValidationError('Invalid credentials.')
         return data

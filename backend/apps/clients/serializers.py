@@ -1,11 +1,10 @@
-# Django Rest Framework
+# Rest Framework
 from rest_framework import serializers
 
-# Models
-from apps.clients.models import Client
-
+# Clients models
+from apps.clients.models import ClientModel
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Client
+        model = ClientModel
         fields = '__all__'

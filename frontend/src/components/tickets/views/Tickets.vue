@@ -16,14 +16,15 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('tickets', ['currentTicket'])
+    ...mapGetters('tickets', ['currentTicket']),
+    ...mapGetters('authentication', ['authUser'])
   },
   methods: {
     ...mapMutations('tickets', ['initWSConection', 'setView']),
     ...mapActions('tickets', ['retrieve'])
   },
   mounted () {
-    this.initWSConection()
+    this.initWSConection(this.authUser.tenant)
     this.setView()
     this.retrieve()
   }

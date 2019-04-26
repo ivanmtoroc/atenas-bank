@@ -1,18 +1,22 @@
-# Django
-from .models import Ticket
+# Tenants
+from django_tenants.utils import schema_context
 
-# Python
+# Django
+from apps.tickets.models import TicketModel
+
+# Datetime
 from datetime import date, datetime
 
-def next_ticket(service):
-    today = date.today()
-    ticket = Ticket.objects.filter(date = today, service = service, status = 'NAT').order_by('time_arrive').first()
-    if not ticket:
-        ticket = Ticket.objects.filter(date = today, service = 'VIP', status = 'NAT').order_by('time_arrive').first()
+def next_ticket(service, tenant):    
+    with schema_context(tenant):
+        today = date.today()
+        ticket = TicketModel.objects.filter(date = today, service = service, status = 'NAT').order_by('time_arrive').first()
         if not ticket:
-            ticket = Ticket.objects.filter(date = today, status = 'NAT').order_by('time_arrive').first()
+            ticket = TicketModel.objects.filter(date = today, service = 'VIP', status = 'NAT').order_by('time_arrive').first()
             if not ticket:
-                return None
-    ticket.status = 'OHL'
-    ticket.save()
-    return ticket
+                ticket = TicketModel.objects.filter(date = today, status = 'NAT').order_by('time_arrive').first()
+                if not ticket:
+                    return None
+        ticket.status = 'OHL'
+        ticket.save()
+        return ticket

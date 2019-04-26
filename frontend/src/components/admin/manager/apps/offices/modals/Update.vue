@@ -14,18 +14,12 @@
           <form @submit.prevent="updateOffice()">
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="code-update">Code</label>
-                <input id="code-update" placeholder="Code" v-model="office.code" type="text" class="form-control" required="required" readonly>
-              </div>
-              <div class="col-md-6 form-group">
                 <label for="name-update">Name</label>
-                <input id="name-update" placeholder="Name" v-model="office.name" type="text" class="form-control" required="required">
+                <input id="name-update" placeholder="Name" v-model="office.name" type="text" class="form-control" required>
               </div>
-            </div>
-            <div class="row">
               <div class="col-md-6 form-group">
-                <label for="employees-update">Employees</label>
-                <input id="employees-update" placeholder="Employees" v-model="office.employees" type="text" class="form-control" required="required">
+                <label for="schema-name-update">Schema name</label>
+                <input id="schema-name-update" placeholder="Schema name" v-model="office.schema_name" type="text" class="form-control" required>
               </div>
             </div>
             <div class="pull-right">

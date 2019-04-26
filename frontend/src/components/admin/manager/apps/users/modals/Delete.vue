@@ -21,7 +21,7 @@
           </div>
           <div class="pull-right">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-            <button data-dismiss="modal" @click="deleteUser(user.identification)" type="button" :class="[ user.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
+            <button data-dismiss="modal" @click="deleteUser(user.id)" type="button" :class="[ user.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
               {{ user.is_active ? 'Deactivate' : 'Active' }}
             </button>
           </div>

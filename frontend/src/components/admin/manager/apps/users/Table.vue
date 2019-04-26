@@ -41,7 +41,7 @@
                       <tr v-for="user in users" role="row" class="odd">
                         <td>{{ user.name }}</td>
                         <td>{{ user.username }}</td>
-                        <td>{{ user.id }}</td>
+                        <td>{{ user.identification }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.position }}</td>
                         <td class="text-center">
@@ -97,9 +97,10 @@ export default {
   },
   methods: {
     ...mapActions('users', ['getUsers', 'getUser']),
-    ...mapMutations('users', ['cleanData', 'dataTable', 'updateTable'])
+    ...mapMutations('users', ['updateHttp', 'cleanData', 'dataTable', 'updateTable'])
   },
   mounted () {
+    this.updateHttp(this.authUser.tenant)
     this.getUsers()
   },
   updated () {

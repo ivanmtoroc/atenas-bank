@@ -13,21 +13,15 @@
         <div class="modal-body">
           <form @submit.prevent="addOffice()">
             <div class="row">
-              <div class="col-md-6 form-group" :class="[ errors.identification ? 'has-error' : '']">
-                <label for="code-create">Code</label>
-                <input id="code-create" placeholder="Code" v-model="office.code" type="text" class="form-control" required="required">
-                <p v-for="error in errors.code" class="text-red">{{ error }}</p>
-              </div>
-              <div class="col-md-6 form-group" :class="[ errors.username ? 'has-error' : '']">
+              <div class="col-md-6 form-group" :class="[ errors.name ? 'has-error' : '']">
                 <label for="name-create">Name</label>
                 <input id="name-create" placeholder="Name" v-model="office.name" type="text" class="form-control" required="required">
                 <p v-for="error in errors.name" class="text-red">{{ error }}</p>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="employees-create">Employees</label>
-                <input id="employees-create" placeholder="Employees" v-model="office.employees" type="text" class="form-control" required="required">
+              <div class="col-md-6 form-group" :class="[ errors.schema_name ? 'has-error' : '']">
+                <label for="schema-name-create">Schema name</label>
+                <input id="schema-name-create" placeholder="Schema name" v-model="office.schema_name" type="text" class="form-control" required="required">
+                <p v-for="error in errors.schema_name" class="text-red">{{ error }}</p>
               </div>
             </div>
             <div class="pull-right">

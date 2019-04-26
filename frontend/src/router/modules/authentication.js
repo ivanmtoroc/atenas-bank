@@ -1,7 +1,7 @@
 import Base from '@/components/authentication/Base'
 
 export default {
-  path: '/authentication',
-  name: 'authentication',
+  path: '/login',
+  name: 'login',
   component: Base
 }

@@ -1,32 +1,20 @@
-# Django Rest Framework
+# Rest Framework
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 
-# Serializers
-from apps.tickets.serializers import TicketSerializer
-
-# Models
-from apps.tickets.models import Ticket
-
-# Python
+# Datetime
 from datetime import datetime, date, timedelta
 
+# Tickets models
+from apps.tickets.models import TicketModel
+
+# Tickets serializers
+from apps.tickets.serializers import TicketSerializer
 
 class TicketViewSet(viewsets.ModelViewSet):
-    queryset = Ticket.objects.all()
+    queryset = TicketModel.objects.all()
     serializer_class = TicketSerializer
-    # permission_classes = (IsAuthenticated,)
-
-    def destroy(self, request, *args, **kwargs):
-        ticket = self.get_object()
-        ticket.is_active = not ticket.is_active
-        ticket.save()
-        data = {
-            'message': 'Delete success.'
-        }
-        return Response(data = data)
 
     def perform_create(self, serializer):
         ticket = serializer.save()
@@ -39,9 +27,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         ticket.init_time = datetime.now()
         ticket.status = 'IAT'
         ticket.save()
-        data = {
-            'message': 'Time attention initiated.'
-        }
+        data = { 'message': 'Time attention initiated.' }
         return Response(data)
 
     @action(detail = True, methods = ['get'])
@@ -62,9 +48,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         ticket.attention_time = (datetime.min + final).time()
         ticket.status = 'ATT'
         ticket.save()
-        data = {
-            'message': 'Time attention finished.'
-        }
+        data = { 'message': 'Time attention finished.' }
         return Response(data)
 
     @action(detail = True, methods = ['get'])
@@ -84,7 +68,5 @@ class TicketViewSet(viewsets.ModelViewSet):
             ticket.status = 'NAT'
         ticket.deferred = True
         ticket.save()
-        data = {
-            'message': 'Ticket deferred.'
-        }
+        data = { 'message': 'Ticket deferred.' }
         return Response(data)

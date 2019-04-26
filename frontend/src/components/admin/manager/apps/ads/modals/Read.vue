@@ -20,7 +20,7 @@
             </li>
             <li>
               <p><strong>Image:</strong></p>
-              <img :src="ad.image" alt="Ad image" width="auto" height="200">
+              <img :src="ad.image" alt="Ad image" width="250" height="200">
             </li>
             <li>
               <p><strong>Status:</strong> {{ ad.is_active ? 'Active' : 'Inactive' }}.</p>

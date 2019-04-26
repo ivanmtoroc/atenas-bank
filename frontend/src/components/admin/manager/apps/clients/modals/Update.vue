@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="identification-update">Identification</label>
-                <input id="identification-update" placeholder="Identification" v-model="client.identification" type="text" class="form-control" required="required" readonly>
+                <input id="identification-update" placeholder="Identification" v-model="client.identification" type="text" class="form-control" required="required">
               </div>
               <div class="col-md-6 form-group checkbox">
                 <label for="vip-create">

@@ -15,7 +15,8 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="identification-update">Identification</label>
-                <input id="identification-update" placeholder="Identification" v-model="user.identification" type="text" class="form-control" required="required" readonly>
+                <input id="identification-update" placeholder="Identification" v-model="user.identification" type="text" class="form-control" required="required">
+                <p v-for="error in errors.identification" class="text-red">{{ error }}</p>
               </div>
               <div class="col-md-6 form-group" :class="[ errors.username ? 'has-error' : '']">
                 <label for="username-update">Username</label>

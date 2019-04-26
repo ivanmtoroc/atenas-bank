@@ -13,13 +13,10 @@
         <div class="modal-body">
           <ul>
             <li>
-              <p><strong>Code:</strong> {{ office.code }}.</p>
-            </li>
-            <li>
               <p><strong>Name:</strong> {{ office.name }}.</p>
             </li>
             <li>
-              <p><strong>Employees:</strong> {{ office.employees }}.</p>
+              <p><strong>Schema name:</strong> {{ office.schema_name }}.</p>
             </li>
             <li>
               <p><strong>Status:</strong> {{ office.is_active ? 'Active' : 'Inactive' }}.</p>

@@ -15,10 +15,6 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="identification-update">Id</label>
-                  <input id="identification-update" placeholder="Id" v-model="ad.id" type="text" class="form-control" required="required" readonly>
-                </div>
-                <div class="form-group">
                   <label for="name-update">Name</label>
                   <input id="name-update" placeholder="Name" v-model="ad.name" type="text" class="form-control" required="required">
                 </div>
@@ -32,7 +28,7 @@
                   <input type="file" ref="file" class="custom-file-input" id="image-create" @change="handleFileUpload()">
                 </div>
                 <div class="form-group center">
-                  <img :src="ad.image" alt="Ad image" width="auto" height="200">
+                  <img :src="ad.image" alt="Ad image" width="250" height="200">
                 </div>
               </div>
             </div>

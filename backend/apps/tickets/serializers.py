@@ -1,10 +1,10 @@
-# Django Rest Framework
+# Rest Framework
 from rest_framework import serializers
 
-# Models
-from apps.tickets.models import Ticket
+# Tickets models
+from apps.tickets.models import TicketModel
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Ticket
+        model = TicketModel
         fields = '__all__'

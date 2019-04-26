@@ -40,7 +40,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="client in clients" role="row" class="odd">
-                        <td>{{ client.id }}</td>
+                        <td>{{ client.identification }}</td>
                         <td>{{ client.name }}</td>
                         <td>{{ client.email }}</td>
                         <td>{{ client.phone }}</td>

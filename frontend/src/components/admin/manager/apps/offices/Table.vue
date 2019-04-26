@@ -1,5 +1,5 @@
 <template>
-      <div>
+  <div>
     <section class="content-header">
       <div class="list-inline">
         <h1>
@@ -28,31 +28,29 @@
                   <table id="table" class="table table-bordered table-striped dataTable" role="grid">
                     <thead>
                       <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Code</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Name</th>
-                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Employees</th>
+                        <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Schema</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Status</th>
                         <th class="sorting" tabindex="0" aria-controls="table" rowspan="1" colspan="1">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="office in offices" role="row" class="odd">
-                        <td>{{ office.code }}</td>
                         <td>{{ office.name }}</td>
-                        <td>{{ office.employees }}</td>
+                        <td>{{ office.schema_name }}</td>
                         <td class="text-center">
                           <p v-if="office.status" class="badge bg-green p-bg">Active</p>
                           <p v-else class="badge bg-red p-bg">Inactive</p>
                         </td>
                         <td class="text-center">
-                          <a @click="getOffice(office.code)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[office.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
+                          <a v-if="office.schema_name != 'public'" @click="getOffice(office.id)" href="#delete" class="btn.btn-app btn-sm action-btn" :class="[office.status ? 'btn-danger' : 'btn-success']" data-toggle="modal" data-target="#delete">
                             <i v-if="office.status" class="fa fa-user-times"></i>
                             <i v-else class="fa fa-user-plus"></i>
                           </a>
-                          <a @click="getOffice(office.code)" href="#update" class="btn.btn-app btn-primary btn-sm action-btn" data-toggle="modal" data-target="#update">
+                          <a v-if="office.schema_name != 'public'" @click="getOffice(office.id)" href="#update" class="btn.btn-app btn-primary btn-sm action-btn" data-toggle="modal" data-target="#update">
                             <i class="fa fa-edit"></i>
                           </a>
-                          <a @click="getOffice(office.code)" href="#read" class="btn.btn-app btn-info btn-sm action-btn" data-toggle="modal" data-target="#read">
+                          <a @click="getOffice(office.id)" href="#read" class="btn.btn-app btn-info btn-sm action-btn" data-toggle="modal" data-target="#read">
                             <i class="fa fa-info-circle"></i>
                           </a>
                         </td>
