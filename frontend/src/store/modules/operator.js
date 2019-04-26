@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const http = axios.create({
-  baseURL: 'http://localhost:8000'
-})
+var http = null
 
 const state = {
   service: '',
@@ -20,6 +18,11 @@ const mutations = {
   },
   setState (state, newState) {
     state.operatorState = newState
+  },
+  updateHttp (state, domain) {
+    http = axios.create({
+      baseURL: `http://${domain === 'public' ? 'localhost' : `${domain}.localhost`}:8000`
+    })
   }
 }
 

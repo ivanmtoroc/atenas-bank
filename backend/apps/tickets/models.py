@@ -17,8 +17,8 @@ STATUS = (
     ('DFR', 'Deferred')
 )
 
-class Ticket(models.Model):
-    turn_number = models.CharField(max_length = 6, default = '001')
+class TicketModel(models.Model):
+    turn_number = models.CharField(max_length = 6, default = '')
     user = models.CharField(max_length = 10)
     service = models.CharField(max_length = 3, choices = SERVICES)
     status = models.CharField(max_length = 3, choices = STATUS, default = 'NAT')
@@ -33,5 +33,5 @@ class Ticket(models.Model):
         return self.turn_number
 
     def set_turn_number(self):
-        my_turn = Ticket.objects.filter(service = self.service).count()
+        my_turn = TicketModel.objects.filter(service = self.service).count()
         self.turn_number = self.service + '{0:0=3d}'.format(my_turn)

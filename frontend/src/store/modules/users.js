@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const http = axios.create({
-  baseURL: 'http://localhost:8000'
-})
+var http = null
 
 const state = {
   users: [],
@@ -18,7 +16,8 @@ const getters = {
     var users = []
     state.users.forEach(user => {
       users.push({
-        id: user['identification'],
+        id: user['id'],
+        identification: user['identification'],
         name: `${user['first_name']} ${user['last_name']}`,
         username: user['username'],
         email: user['email'],
@@ -30,14 +29,16 @@ const getters = {
   },
   headers: (state, getters, rootGetters) => {
     return { headers: { Authorization: 'Token ' + rootGetters.authentication.token } }
+  },
+  tenant: (state, getters, rootGetters) => {
+    return rootGetters.authentication.user.tenant
   }
 }
 
 const mutations = {
   updateTable () {
     // eslint-disable-next-line
-    var table = $('#table').DataTable()
-    table.draw()
+    $('#table').DataTable().draw()
   },
   dataTable (state) {
     // eslint-disable-next-line
@@ -59,6 +60,7 @@ const mutations = {
     state.errors = {}
     state.existsErrors = false
     state.user = {
+      id: null,
       username: null,
       identification: null,
       first_name: null,
@@ -68,9 +70,15 @@ const mutations = {
       phone: null,
       address: null,
       position: null,
-      passwd: null,
-      passwd_confirmation: null
+      password: null,
+      password_confirmation: null,
+      tenant: null
     }
+  },
+  updateHttp: (state, domain) => {
+    http = axios.create({
+      baseURL: `http://${domain === 'public' ? 'localhost' : `${domain}.localhost`}:8000`
+    })
   }
 }
 
@@ -90,6 +98,9 @@ const actions = {
   },
   async addUser ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
+    if (getters.tenant === 'public' && state.user.tenant !== 'public') {
+      commit('updateHttp', state.user.tenant)
+    }
     await http.post('users/', state.user, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
@@ -100,7 +111,7 @@ const actions = {
   },
   async updateUser ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`users/${state.user.identification}/`, state.user, getters.headers)
+    await http.put(`users/${state.user.id}/`, state.user, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getUsers')

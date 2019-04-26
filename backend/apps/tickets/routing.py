@@ -1,9 +1,9 @@
 # Django
-from django.conf.urls import url
+from django.urls import path
 
-# Consumers
-from .consumers import TicketsConsumer
+# Tickets consumers
+from apps.tickets.consumers import TicketsConsumer
 
 websocket_urlpatterns = [
-    url('ws/tickets/', TicketsConsumer),
+    path('<str:tenant>', TicketsConsumer),
 ]

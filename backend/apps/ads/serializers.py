@@ -1,11 +1,10 @@
-# Django Rest Framework
+# Rest Framework
 from rest_framework import serializers
 
-# Models
-from apps.ads.models import Ad
-
+# Ads models
+from apps.ads.models import AdModel
 
 class AdSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Ad
+        model = AdModel
         fields = '__all__'

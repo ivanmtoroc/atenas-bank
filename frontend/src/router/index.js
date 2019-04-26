@@ -7,6 +7,8 @@ import landing from './modules/landing'
 import authentication from './modules/authentication'
 import tickets from './modules/tickets'
 
+import error404 from '@/components/errors/404'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -17,15 +19,18 @@ const router = new Router({
     { ...authentication },
     { ...admin },
     { ...tickets },
-    { path: '*', redirect: '/' }
+    {
+      path: '*',
+      component: error404
+    }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   const logged = store.getters['authentication/logged']
-  const position = store.getters['authentication/position']
+  const authUser = store.getters['authentication/authUser']
   switch (to.name) {
-    case 'authentication':
+    case 'login':
       if (logged) {
         next({ name: 'home' })
       } else {
@@ -38,15 +43,19 @@ router.beforeEach((to, from, next) => {
     case 'clients':
     case 'ads':
       if (!logged) {
-        next({ name: 'authentication' })
-      } else if (position === 'OP') {
+        next({ name: 'login' })
+      } else if (authUser.position === 'OP') {
         next({ name: 'operator' })
-      } else {
+      } else if (authUser.tenant === 'public') {
         next()
+      } else if (to.name === 'home' || to.name === 'users') {
+        next()
+      } else {
+        next({ name: 'home' })
       }
       break
     case 'operator':
-      if (position === 'MG') {
+      if (authUser.position === 'MG') {
         next({ name: 'home' })
       } else {
         next()

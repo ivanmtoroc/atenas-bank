@@ -1,29 +1,24 @@
-# Channesl
+# Channels
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-# Python
-import json
+# Tickets algorithm
+from apps.tickets.algorithm import next_ticket
 
-# Algorithm
-from . import algorithm
+# JSON
+import json
 
 class TicketsConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        await self.channel_layer.group_add(
-            'tickets',
-            self.channel_name
-        )
+        self.tenant = self.scope['url_route']['kwargs']['tenant']
+        await self.channel_layer.group_add(self.tenant, self.channel_name)
         await self.accept()
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard(
-            'tickets',
-            self.channel_name
-        )
+        await self.channel_layer.group_discard(self.tenant, self.channel_name)
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        ticket = algorithm.next_ticket(data['service'])
+        ticket = next_ticket(data['service'], data['tenant'])
         if ticket:
             ticket_data = {
                 'ticket': {
@@ -31,24 +26,20 @@ class TicketsConsumer(AsyncWebsocketConsumer):
                     'turn_number': ticket.turn_number,
                     'user': ticket.user
                 },
-                'with-ticket': True,
+                'status': True,
                 'operator': data['operator']
             }
         else:
             ticket_data = {
-                'with-ticket': False,
+                'ticket': {},
+                'status': False,
                 'operator': data['operator']
             }
 
         await self.channel_layer.group_send(
-            'tickets',
-            {
-                'type': 'next_ticket',
-                'ticket': ticket_data
-            }
+            self.tenant,
+            { 'type': 'next_ticket', 'ticket': ticket_data }
         )
 
     async def next_ticket(self, context):
-        await self.send(text_data = json.dumps(
-            context['ticket']
-        ))
+        await self.send(text_data = json.dumps(context['ticket']))

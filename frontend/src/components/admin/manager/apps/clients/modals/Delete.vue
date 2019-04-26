@@ -21,7 +21,7 @@
           </div>
           <div class="pull-right">
             <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-            <button data-dismiss="modal" @click="deleteClient(client.identification)" type="button" :class="[ client.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
+            <button data-dismiss="modal" @click="deleteClient(client.id)" type="button" :class="[ client.is_active ? 'btn-danger' : 'btn-success' ]" class="btn">
               {{ client.is_active ? 'Deactivate' : 'Active' }}
             </button>
           </div>

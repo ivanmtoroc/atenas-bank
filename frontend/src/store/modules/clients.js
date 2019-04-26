@@ -18,7 +18,8 @@ const getters = {
     var clients = []
     state.clients.forEach(client => {
       clients.push({
-        id: client['identification'],
+        id: client['id'],
+        identification: client['identification'],
         name: `${client['first_name']} ${client['last_name']}`,
         email: client['email'],
         phone: client['phone'],
@@ -93,7 +94,7 @@ const actions = {
   },
   async updateClient ({ dispatch, commit, state, getters }) {
     commit('cleanErrors')
-    await http.put(`clients/${state.client.identification}/`, state.client, getters.headers)
+    await http.put(`clients/${state.client.id}/`, state.client, getters.headers)
       .catch(errors => commit('setErrors', errors))
     if (!state.existsErrors) {
       await dispatch('getClients')

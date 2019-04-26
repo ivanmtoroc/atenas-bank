@@ -1,14 +1,24 @@
 import axios from 'axios'
 import router from '@/router'
 
-const http = axios.create({
-  baseURL: 'http://localhost:8000'
-})
+var http = null
 
-const WS = 'ws://localhost:8000/ws/tickets/'
+const updateHttp = (domain) => {
+  http = axios.create({
+    baseURL: `http://${domain}.localhost:8000`
+  })
+}
+
+var WS = null
+
+const updateWS = (domain) => {
+  WS = `ws://localhost:8000/${domain}`
+}
 
 const state = {
-  ticket: {},
+  ticket: {
+    tenant: null
+  },
   identification: '',
   webSocket: null,
   currentTicket: {
@@ -20,11 +30,13 @@ const state = {
 
 const getters = {
   identification: state => state.identification,
+  ticket: state => state.ticket,
   currentTicket: state => state.currentTicket
 }
 
 const mutations = {
-  initWSConection (state) {
+  initWSConection (state, tenant) {
+    updateWS(tenant)
     state.webSocket = new WebSocket(WS)
   },
   cleanData (state) {
@@ -53,7 +65,8 @@ const mutations = {
 }
 
 const actions = {
-  async getTicket ({ state }) {
+  async getTicket ({ state, getters }) {
+    updateHttp(state.ticket.tenant)
     state.ticket.user = state.identification
     const response = await http.post('tickets/', state.ticket)
     state.currentTicket = response.data
@@ -62,14 +75,15 @@ const actions = {
   send ({ state, rootGetters }, service) {
     state.webSocket.send(JSON.stringify({
       'service': service,
-      'operator': rootGetters['authentication/authUser']['id']
+      'operator': rootGetters['authentication/authUser']['id'],
+      'tenant': rootGetters['authentication/authUser']['tenant']
     }))
   },
   retrieve ({ state, rootGetters }) {
     state.webSocket.onmessage = (response) => {
       const data = JSON.parse(response.data)
       if (data['operator'] === rootGetters['authentication/authUser']['id'] || state.listView) {
-        if (data['with-ticket']) {
+        if (data['status']) {
           state.currentTicket = data['ticket']
         } else {
           state.currentTicket = {

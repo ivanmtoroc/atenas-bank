@@ -60,14 +60,24 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 form-group" :class="[ errors.passwd ? 'has-error' : '']">
-                <label for="passwd-create">Password</label>
-                <input id="passwd-create" placeholder="Password" v-model="user.passwd" type="password" class="form-control" required="required">
-                <p v-for="error in errors.passwd" class="text-red">{{ error }}</p>
+              <div class="col-md-6 form-group" :class="[ errors.password ? 'has-error' : '']">
+                <label for="password-create">Password</label>
+                <input id="password-create" placeholder="Password" v-model="user.password" type="password" class="form-control" required="required">
+                <p v-for="error in errors.password" class="text-red">{{ error }}</p>
               </div>
-              <div class="col-md-6 form-group" :class="[ errors.passwd ? 'has-error' : '']">
-                <label for="passwd_confirmation-create">Password confirmation</label>
-                <input id="passwd_confirmation-create" placeholder="Password confirmation" v-model="user.passwd_confirmation" type="password" class="form-control" required="required">
+              <div class="col-md-6 form-group" :class="[ errors.password ? 'has-error' : '']">
+                <label for="password_confirmation-create">Password confirmation</label>
+                <input id="password_confirmation-create" placeholder="Password confirmation" v-model="user.password_confirmation" type="password" class="form-control" required="required">
+              </div>
+            </div>
+            <div v-if="authUser.tenant === 'public'" class="row">
+              <div class="col-md-6 form-group">
+                <label for="tenant">Tenant</label>
+                <select id="tenant" v-model="user.tenant" class="form-control" required>
+                  <option v-for="office in offices" :value="office.schema_name">
+                    {{ office.name }}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="pull-right">
@@ -87,10 +97,16 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('users', ['user', 'errors'])
+    ...mapGetters('users', ['user', 'errors']),
+    ...mapGetters('authentication', ['authUser']),
+    ...mapGetters('offices', ['offices'])
   },
   methods: {
-    ...mapActions('users', ['addUser'])
+    ...mapActions('users', ['addUser']),
+    ...mapActions('offices', ['getOffices'])
+  },
+  mounted () {
+    this.getOffices()
   }
 }
 </script>
