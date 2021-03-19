@@ -4,6 +4,6 @@ django-tenants==2.2.3
 channels==2.1.7
 channels-redis==2.3.3
 django-cors-headers==2.4.0
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 psycopg2==2.7.7
 psycopg2-binary==2.7.7
