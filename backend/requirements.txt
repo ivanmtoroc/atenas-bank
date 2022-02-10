@@ -1,5 +1,5 @@
 pillow==5.4.1
-django==2.2.4
+django==2.2.27
 django-tenants==2.2.3
 channels==2.1.7
 channels-redis==2.3.3
