@@ -1,4 +1,4 @@
-pillow==5.4.1
+pillow==9.3.0
 django==2.2.4
 django-tenants==2.2.3
 channels==2.1.7
